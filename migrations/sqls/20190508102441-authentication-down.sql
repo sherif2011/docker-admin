@@ -1,1 +1,1 @@
-DROP TABLE lbstarter.auth_clients;
+DROP TABLE admin.auth_clients;

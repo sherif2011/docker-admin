@@ -92,7 +92,7 @@ Database supported in this starter project is postgresql. But you can use any ot
 Setup a [postgresql](https://www.postgresql.org/) instance. Create a database named **todolist**.
 DB Schema will be setup automatically via our aplication later.
 
-We are using [DbSchema](https://www.dbschema.com/) in this starter project to design our ERD for database. You can replace lbstarter.dbs with your own schema file.
+We are using [DbSchema](https://www.dbschema.com/) in this starter project to design our ERD for database. You can replace admin.dbs with your own schema file.
 
 #### Setup redis
 
@@ -123,7 +123,7 @@ In this project, we are using [db-migrate](https://db-migrate.readthedocs.io/en/
 
 LoopBack4 also provides [auto migration](https://loopback.io/doc/en/lb4/Database-migrations.html) from models to DB but considering that its not guaranteed to be safe as mentioned [here](https://loopback.io/doc/en/lb4/Database-migrations.html#overview), we prefer to keep DB stuff outside of the ORM layer. This also helps in abstracting our models in codebase from DB tables. If you are good with LB4 way, please ignore below.
 
-Replace all occurences of 'lbstarter' with 'todolist' in ./migrations folder.
+Replace all occurences of 'admin' with 'todolist' in ./migrations folder.
 Run the below command to setup the database schema and tables with initial seed data.
 
 ```sh
@@ -175,7 +175,7 @@ You can try out only the unsecured APIs here, like auth/login. The secure endpoi
 - Every role has associated permissions.
 - Each user may have some extra permissions (allowed or denied) per tenant over and above its role, user_tenant_permissions table takes care of it.
 
-For detailed description of database tables and columns, please open lbstarter.dbs in [DbSchema](https://www.dbschema.com/) tool.
+For detailed description of database tables and columns, please open admin.dbs in [DbSchema](https://www.dbschema.com/) tool.
 
 #### Authentication
 
@@ -212,7 +212,7 @@ This starter project uses [loopback4-soft-delete](https://github.com/sourcefuse/
 
 #### Audit Logs
 
-Audit logs are updated using DB triggers in this project. Refer to the lbstarter-schema.html for the details.
+Audit logs are updated using DB triggers in this project. Refer to the admin-schema.html for the details.
 
 ### Feedback
 

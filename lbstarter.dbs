@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="PostgreSQL" id="Project_2cbf47" template="Default" database="PostgreSQL" >
-	<schema name="lbstarter" schemaname="lbstarter" >
+	<schema name="admin" schemaname="admin" >
 		<table name="auth_clients" >
 			<column name="id" type="integer" jt="4" mandatory="y" autoincrement="y" />
 			<column name="client_id" type="varchar" length="50" jt="12" mandatory="y" />
@@ -86,10 +86,10 @@
 			<index name="idx_tenants_modified_by" unique="NORMAL" >
 				<column name="modified_by" />
 			</index>
-			<fk name="fk_created_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_created_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="created_by" pk="id" />
 			</fk>
-			<fk name="fk_modified_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_modified_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="modified_by" pk="id" />
 			</fk>
 		</table>
@@ -118,7 +118,7 @@
 			<index name="idx_user_credentials" unique="NORMAL" >
 				<column name="auth_provider" />
 			</index>
-			<fk name="fk_user_credentials_users" to_schema="lbstarter" to_table="users" >
+			<fk name="fk_user_credentials_users" to_schema="admin" to_table="users" >
 				<fk_column name="user_id" pk="id" />
 			</fk>
 		</table>
@@ -152,13 +152,13 @@
 			<index name="idx_user_tenant_permissions_user_tenant_id" unique="NORMAL" >
 				<column name="user_tenant_id" />
 			</index>
-			<fk name="fk_created_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_created_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="created_by" pk="id" />
 			</fk>
-			<fk name="fk_modified_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_modified_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="modified_by" pk="id" />
 			</fk>
-			<fk name="fk_user_tenant_permissions" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_user_tenant_permissions" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="user_tenant_id" pk="id" />
 			</fk>
 		</table>
@@ -191,13 +191,13 @@
 			<index name="idx_user_tenants_role_id" unique="NORMAL" >
 				<column name="role_id" />
 			</index>
-			<fk name="fk_user_tenants_roles" to_schema="lbstarter" to_table="roles" >
+			<fk name="fk_user_tenants_roles" to_schema="admin" to_table="roles" >
 				<fk_column name="role_id" pk="id" />
 			</fk>
-			<fk name="fk_user_tenant_tenant" to_schema="lbstarter" to_table="tenants" >
+			<fk name="fk_user_tenant_tenant" to_schema="admin" to_table="tenants" >
 				<fk_column name="tenant_id" pk="id" />
 			</fk>
-			<fk name="fk_user_tenant_user" to_schema="lbstarter" to_table="users" >
+			<fk name="fk_user_tenant_user" to_schema="admin" to_table="users" >
 				<fk_column name="user_id" pk="id" />
 			</fk>
 		</table>
@@ -237,13 +237,13 @@
 			<index name="idx_users_default_tenant" unique="NORMAL" >
 				<column name="default_tenant" />
 			</index>
-			<fk name="fk_users_tenants_default_tenant" to_schema="lbstarter" to_table="tenants" >
+			<fk name="fk_users_tenants_default_tenant" to_schema="admin" to_table="tenants" >
 				<fk_column name="default_tenant" pk="id" />
 			</fk>
-			<fk name="fk_user_user_tenant_created_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_user_user_tenant_created_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="created_by" pk="id" />
 			</fk>
-			<fk name="fk_user_user_tenant_modified_by" to_schema="lbstarter" to_table="user_tenants" >
+			<fk name="fk_user_user_tenant_modified_by" to_schema="admin" to_table="user_tenants" >
 				<fk_column name="modified_by" pk="id" />
 			</fk>
 		</table>
@@ -260,28 +260,28 @@
 		<sequence name="users_id_seq" start="1" />
 		<sequence name="users_id_seq1" start="1" />
 		<trigger name="mdt_roles" table="roles" id="Trigger_377b014" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER mdt_roles BEFORE UPDATE ON lbstarter.roles FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
+			<string><![CDATA[CREATE TRIGGER mdt_roles BEFORE UPDATE ON admin.roles FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
 		</trigger>
 		<trigger name="mdt_tenants" table="tenants" id="Trigger_1513b2f" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER mdt_tenants BEFORE UPDATE ON lbstarter.tenants FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
+			<string><![CDATA[CREATE TRIGGER mdt_tenants BEFORE UPDATE ON admin.tenants FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
 		</trigger>
 		<trigger name="mdt_user_tenant_permissions" table="user_tenant_permissions" id="Trigger_3f13971" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER mdt_user_tenant_permissions BEFORE UPDATE ON lbstarter.user_tenant_permissions FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
+			<string><![CDATA[CREATE TRIGGER mdt_user_tenant_permissions BEFORE UPDATE ON admin.user_tenant_permissions FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
 		</trigger>
 		<trigger name="mdt_user_tenants" table="user_tenants" id="Trigger_50de6bb" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER mdt_user_tenants BEFORE UPDATE ON lbstarter.user_tenants FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
+			<string><![CDATA[CREATE TRIGGER mdt_user_tenants BEFORE UPDATE ON admin.user_tenants FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
 		</trigger>
 		<trigger name="mdt_users" table="users" id="Trigger_47ba329" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER mdt_users BEFORE UPDATE ON lbstarter.users FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
+			<string><![CDATA[CREATE TRIGGER mdt_users BEFORE UPDATE ON admin.users FOR EACH ROW EXECUTE PROCEDURE moddatetime();]]></string>
 		</trigger>
 		<trigger name="tenants_audit_trigger" table="tenants" id="Trigger_2c99451" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER tenants_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON lbstarter.tenants FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
+			<string><![CDATA[CREATE TRIGGER tenants_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON admin.tenants FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
 		</trigger>
 		<trigger name="user_tenant_permissions_audit_trigger" table="user_tenant_permissions" id="Trigger_45615d" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER user_tenant_permissions_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON lbstarter.user_tenant_permissions FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
+			<string><![CDATA[CREATE TRIGGER user_tenant_permissions_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON admin.user_tenant_permissions FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
 		</trigger>
 		<trigger name="users_audit_trigger" table="users" id="Trigger_29c08a1" isSystem="false" >
-			<string><![CDATA[CREATE TRIGGER users_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON lbstarter.users FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
+			<string><![CDATA[CREATE TRIGGER users_audit_trigger AFTER INSERT OR DELETE OR UPDATE ON admin.users FOR EACH ROW EXECUTE PROCEDURE logs.audit_trigger('USER_LOGS');]]></string>
 		</trigger>
 	</schema>
 	<schema name="logs" schemaname="logs" >
@@ -387,7 +387,7 @@ $function$
 			<result_param name="returnValue" jt="1111" type="trigger" />
 		</procedure>
 	</schema>
-	<schema name="public" catalogname="lbstarter" schemaname="public" >
+	<schema name="public" catalogname="admin" schemaname="public" >
 		<table name="migrations" >
 			<column name="id" type="serial" length="10" decimal="0" jt="4" mandatory="y" autoincrement="y" />
 			<column name="name" type="varchar" length="255" decimal="0" jt="12" mandatory="y" />
@@ -411,29 +411,29 @@ $function$
 			<result_param name="returnValue" jt="1111" type="trigger" />
 		</procedure>
 	</schema>
-	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.2.jar" driver_desc="Standard" host="localhost" port="5432" instance="lbstarter" user="postgres" passwd="cG9zdGdyZXN0ZXN0" />
+	<connector name="PostgreSQL" database="PostgreSQL" driver_class="org.postgresql.Driver" driver_jar="postgresql-42.2.2.jar" driver_desc="Standard" host="localhost" port="5432" instance="admin" user="postgres" passwd="cG9zdGdyZXN0ZXN0" />
 	<layout name="Parsed Script Layout" id="Layout_1041beb" show_relation="no_text" >
-		<entity schema="lbstarter" name="user_tenant_permissions" color="BED3F4" x="48" y="320" />
-		<entity schema="lbstarter" name="roles" color="BED3F4" x="112" y="96" />
-		<entity schema="lbstarter" name="tenants" color="BED3F4" x="288" y="320" />
-		<entity schema="lbstarter" name="users" color="BED3F4" x="464" y="80" />
-		<entity schema="lbstarter" name="auth_clients" color="C1D8EE" x="880" y="400" />
+		<entity schema="admin" name="user_tenant_permissions" color="BED3F4" x="48" y="320" />
+		<entity schema="admin" name="roles" color="BED3F4" x="112" y="96" />
+		<entity schema="admin" name="tenants" color="BED3F4" x="288" y="320" />
+		<entity schema="admin" name="users" color="BED3F4" x="464" y="80" />
+		<entity schema="admin" name="auth_clients" color="C1D8EE" x="880" y="400" />
 		<entity schema="logs" name="audit_logs" color="3986C1" x="880" y="80" />
-		<entity schema="lbstarter" name="user_tenants" color="3986C1" x="288" y="80" />
-		<entity schema="lbstarter" name="user_credentials" color="3986C1" x="656" y="80" />
+		<entity schema="admin" name="user_tenants" color="3986C1" x="288" y="80" />
+		<entity schema="admin" name="user_credentials" color="3986C1" x="656" y="80" />
 		<group name="audit" color="C4E0F9" >
 			<entity schema="logs" name="audit_logs" />
 		</group>
 		<group name="Auth" color="C4E0F9" >
-			<entity schema="lbstarter" name="auth_clients" />
+			<entity schema="admin" name="auth_clients" />
 		</group>
 		<group name="user_tenants" color="ECF0F7" >
-			<entity schema="lbstarter" name="tenants" />
-			<entity schema="lbstarter" name="users" />
-			<entity schema="lbstarter" name="roles" />
-			<entity schema="lbstarter" name="user_tenant_permissions" />
-			<entity schema="lbstarter" name="user_tenants" />
-			<entity schema="lbstarter" name="user_credentials" />
+			<entity schema="admin" name="tenants" />
+			<entity schema="admin" name="users" />
+			<entity schema="admin" name="roles" />
+			<entity schema="admin" name="user_tenant_permissions" />
+			<entity schema="admin" name="user_tenants" />
+			<entity schema="admin" name="user_credentials" />
 		</group>
 		<script name="SQL_Editor" id="Editor_1274822" language="SQL" >
 			<string><![CDATA[
@@ -441,19 +441,19 @@ $function$
 
 
 
-ALTER TABLE lbstarter.roles ADD CONSTRAINT fk_created_by FOREIGN KEY ( created_by ) REFERENCES lbstarter.user_tenants( id );
+ALTER TABLE admin.roles ADD CONSTRAINT fk_created_by FOREIGN KEY ( created_by ) REFERENCES admin.user_tenants( id );
 
-ALTER TABLE lbstarter.roles ADD CONSTRAINT fk_modified_by FOREIGN KEY ( modified_by ) REFERENCES lbstarter.user_tenants( id );
-
-
-ALTER TABLE lbstarter.tenants ADD CONSTRAINT fk_created_by FOREIGN KEY ( created_by ) REFERENCES lbstarter.user_tenants( id );
-
-ALTER TABLE lbstarter.tenants ADD CONSTRAINT fk_modified_by FOREIGN KEY ( modified_by ) REFERENCES lbstarter.user_tenants( id );
+ALTER TABLE admin.roles ADD CONSTRAINT fk_modified_by FOREIGN KEY ( modified_by ) REFERENCES admin.user_tenants( id );
 
 
-ALTER TABLE lbstarter.users ADD CONSTRAINT fk_user_user_tenant_created_by FOREIGN KEY ( created_by ) REFERENCES lbstarter.user_tenants( id );
+ALTER TABLE admin.tenants ADD CONSTRAINT fk_created_by FOREIGN KEY ( created_by ) REFERENCES admin.user_tenants( id );
 
-ALTER TABLE lbstarter.users ADD CONSTRAINT fk_user_user_tenant_modified_by FOREIGN KEY ( modified_by ) REFERENCES lbstarter.user_tenants( id );
+ALTER TABLE admin.tenants ADD CONSTRAINT fk_modified_by FOREIGN KEY ( modified_by ) REFERENCES admin.user_tenants( id );
+
+
+ALTER TABLE admin.users ADD CONSTRAINT fk_user_user_tenant_created_by FOREIGN KEY ( created_by ) REFERENCES admin.user_tenants( id );
+
+ALTER TABLE admin.users ADD CONSTRAINT fk_user_user_tenant_modified_by FOREIGN KEY ( modified_by ) REFERENCES admin.user_tenants( id );
 
 
 ]]></string>

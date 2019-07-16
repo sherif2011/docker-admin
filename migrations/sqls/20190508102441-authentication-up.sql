@@ -17,4 +17,4 @@ CREATE TABLE admin.auth_clients (
 insert into admin.auth_clients
   (client_id, client_secret, secret)
   values
-  ('webapp','saqw21!@', 'plmnkoqazxsw');
+  ('l2app','qiweu12!@', 'oqwieuaklsas');

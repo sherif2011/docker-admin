@@ -26,6 +26,12 @@ export class Role extends BaseEntity {
   permissions: string[];
 
   @property({
+    type: 'array',
+    itemType: 'string',
+  })
+  clients: string[];
+
+  @property({
     type: 'number',
     name: 'role_key',
   })

@@ -18,13 +18,12 @@ export class RoleRepository extends DefaultSoftCrudRepository<
     const permissions = `{${
       entity.permissions ? entity.permissions.join() : ''
     }}`;
-    const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `INSERT INTO admin.roles(
-      permissions, clients, name, deleted, role_key)
-      VALUES ('${permissions}', '${clients}', '${entity.name}', '${
-      entity.deleted
-    }', '${entity.roleKey}')`;
+      permissions, name, deleted, role_key)
+      VALUES ('${permissions}', '${entity.name}', '${entity.deleted}', '${
+      entity.roleKey
+    }')`;
     await super.execute(query, []);
     return (await this.findOne({
       order: ['createdOn DESC'],
@@ -35,10 +34,9 @@ export class RoleRepository extends DefaultSoftCrudRepository<
     const permissions = `{${
       entity.permissions ? entity.permissions.join() : ''
     }}`;
-    const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `UPDATE admin.roles SET
-     permissions='${permissions}', clients= '${clients}', name='${entity.name}',
+     permissions='${permissions}',  name='${entity.name}',
      deleted='${entity.deleted}',role_key='${entity.roleKey}' WHERE id=${id}`;
     await super.execute(query, []);
   }
@@ -47,10 +45,9 @@ export class RoleRepository extends DefaultSoftCrudRepository<
     const permissions = `{${
       entity.permissions ? entity.permissions.join() : ''
     }}`;
-    const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `UPDATE admin.roles SET
-     permissions='${permissions}', clients= '${clients}', name='${entity.name}',
+     permissions='${permissions}', name='${entity.name}',
      deleted='${entity.deleted}',role_key='${entity.roleKey}' WHERE id=${id}`;
     await super.execute(query, []);
   }

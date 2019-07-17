@@ -14,6 +14,11 @@ insert into roles
   values
   (3,'subscriber', 3, '{ViewOwnUser,ViewTenant,ViewRole}');
 
+insert into groups
+  (id, name, clients)
+  values
+  (1,'AllHSP', '{AMAC,FDFL}');
+
 insert into tenants
   (id, name, type)
   values

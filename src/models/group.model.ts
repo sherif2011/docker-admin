@@ -1,12 +1,11 @@
 import {model, property} from '@loopback/repository';
 
-import {RoleType} from '../modules/roles/role.enum';
 import {BaseEntity} from './base-entity.model';
 
 @model({
-  name: 'roles',
+  name: 'groups',
 })
-export class Role extends BaseEntity {
+export class Group extends BaseEntity {
   @property({
     type: 'number',
     id: true,
@@ -23,21 +22,15 @@ export class Role extends BaseEntity {
     type: 'array',
     itemType: 'string',
   })
-  permissions: string[];
+  clients: string[];
 
-  @property({
-    type: 'number',
-    name: 'role_key',
-  })
-  roleKey: RoleType;
-
-  constructor(data?: Partial<Role>) {
+  constructor(data?: Partial<Group>) {
     super(data);
   }
 }
 
-export interface RoleRelations {
+export interface GroupRelations {
   // describe navigational properties here
 }
 
-export type RoleWithRelations = Role;
+export type GroupWithRelations = Group;

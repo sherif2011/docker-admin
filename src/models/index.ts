@@ -4,6 +4,7 @@ export * from './user-modifiable-entity.model';
 export * from './user.model';
 export * from './tenant.model';
 export * from './role.model';
+export * from './group.model';
 export * from './user-tenant-permission.model';
 export * from './audit-log.model';
 export * from './auth-client.model';

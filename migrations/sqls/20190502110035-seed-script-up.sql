@@ -30,6 +30,6 @@ insert into users
   values
   (1, 'Super', 'Admin', 'super_admin', '$2a$10$TOLMGK43MjbibS8Jap2RXeHl3.4sJcR3eFbms2dBll2LTMggSK9hG', 1);
 insert into user_tenants
-  (user_id, tenant_id, role_id)
+  (user_id, tenant_id, role_id, group_id)
   values
-  (1, 1, 1);
+  (1, 1, 1, 1);

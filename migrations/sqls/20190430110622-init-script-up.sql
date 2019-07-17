@@ -132,6 +132,7 @@ CREATE TABLE admin.user_tenants (
 	modified_on          timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL ,
 	deleted              bool DEFAULT false NOT NULL ,
 	role_id              integer NOT NULL ,
+	group_id             integer NOT NULL ,
 	status               varchar(50) DEFAULT 'active'::character varying NOT NULL ,
 	CONSTRAINT pk_user_tenant_id PRIMARY KEY ( id )
  );

@@ -353,12 +353,14 @@ export class LoginController {
           AuthenticateErrorKeys.UserDoesNotExist,
         );
       }
+
       const userTenant = await this.userTenantRepo.findOne({
         where: {
           userId: user.getId(),
           tenantId: user.defaultTenant,
         },
       });
+
       if (!userTenant) {
         throw new HttpErrors.Unauthorized(
           AuthenticateErrorKeys.UserDoesNotExist,
@@ -370,6 +372,7 @@ export class LoginController {
       const authUser: AuthUser = new AuthUser(user);
       authUser.tenant = await this.userTenantRepo.tenant(userTenant.id);
       const role = await this.userTenantRepo.role(userTenant.id);
+      const group = await this.userTenantRepo.group(userTenant.id);
       const utPerms = await this.utPermsRepo.find({
         where: {
           userTenantId: userTenant.id,
@@ -381,6 +384,7 @@ export class LoginController {
       });
       authUser.permissions = this.getUserPermissions(utPerms, role.permissions);
       authUser.role = role.roleKey.toString();
+      authUser.clients = group.clients;
       const accessToken = jwt.sign(
         authUser.toJSON(),
         process.env.JWT_SECRET as string,

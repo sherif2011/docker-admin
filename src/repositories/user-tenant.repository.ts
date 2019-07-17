@@ -2,11 +2,19 @@ import {Getter, inject} from '@loopback/core';
 import {BelongsToAccessor, repository} from '@loopback/repository';
 
 import {PgdbDataSource} from '../datasources';
-import {Role, Tenant, User, UserTenant, UserTenantRelations} from '../models';
+import {
+  Role,
+  Tenant,
+  User,
+  UserTenant,
+  UserTenantRelations,
+  Group,
+} from '../models';
 import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
 import {RoleRepository} from './role.repository';
 import {TenantRepository} from './tenant.repository';
 import {UserRepository} from './user.repository';
+import {GroupRepository} from './group.repository';
 
 export class UserTenantRepository extends DefaultSoftCrudRepository<
   UserTenant,
@@ -20,6 +28,10 @@ export class UserTenantRepository extends DefaultSoftCrudRepository<
 
   public readonly user: BelongsToAccessor<User, typeof UserTenant.prototype.id>;
   public readonly role: BelongsToAccessor<Role, typeof UserTenant.prototype.id>;
+  public readonly group: BelongsToAccessor<
+    Group,
+    typeof UserTenant.prototype.id
+  >;
 
   constructor(
     @inject('datasources.pgdb') dataSource: PgdbDataSource,
@@ -29,6 +41,8 @@ export class UserTenantRepository extends DefaultSoftCrudRepository<
     userRepositoryGetter: Getter<UserRepository>,
     @repository.getter(RoleRepository)
     roleRepositoryGetter: Getter<RoleRepository>,
+    @repository.getter(GroupRepository)
+    groupRepositoryGetter: Getter<GroupRepository>,
   ) {
     super(UserTenant, dataSource);
 
@@ -45,6 +59,11 @@ export class UserTenantRepository extends DefaultSoftCrudRepository<
     this.role = this.createBelongsToAccessorFor(
       'role_id',
       roleRepositoryGetter,
+    );
+
+    this.group = this.createBelongsToAccessorFor(
+      'group_id',
+      groupRepositoryGetter,
     );
   }
 }

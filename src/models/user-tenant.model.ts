@@ -3,6 +3,7 @@ import {BaseEntity} from './base-entity.model';
 import {Tenant, TenantWithRelations} from './tenant.model';
 import {User, UserWithRelations} from './user.model';
 import {Role, RoleWithRelations} from './role.model';
+import {Group, GroupWithRelations} from './group.model';
 
 @model({
   name: 'user_tenants',
@@ -44,6 +45,16 @@ export class UserTenant extends BaseEntity {
   )
   roleId: number;
 
+  @belongsTo(
+    () => Group,
+    {keyFrom: 'group_id', name: 'group_id'},
+    {
+      name: 'group_id',
+      required: true,
+    },
+  )
+  groupId: number;
+
   @property({
     type: 'string',
     required: true,
@@ -60,6 +71,7 @@ export interface UserTenantRelations {
   user: UserWithRelations;
   tenant: TenantWithRelations;
   role: RoleWithRelations;
+  group: GroupWithRelations;
 }
 
 export type UserTenantWithRelations = UserTenant & UserTenantRelations;

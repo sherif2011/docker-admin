@@ -11,10 +11,22 @@ export class AuthUser extends User {
   permissions: string[] = [];
 
   @property({
+    type: 'array',
+    itemType: 'string',
+  })
+  clients: string[] = [];
+
+  @property({
     type: 'string',
     required: true,
   })
   role: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  group: string;
 
   @property({
     type: Tenant,

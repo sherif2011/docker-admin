@@ -6,3 +6,6 @@ export * from '../modules/audit/audit-log.controller';
 export * from '../modules/auth/login.controller';
 export * from '../modules/auth/logout.controller';
 export * from '../modules/user-tenants/user-credentials.controller';
+export * from '../modules/user-tenants/user-tenant-permission.controller';
+export * from '../modules/user-tenants/user-tenant-client.controller';
+export * from './group.controller';

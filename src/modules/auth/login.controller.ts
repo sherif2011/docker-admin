@@ -396,7 +396,12 @@ export class LoginController {
       });
       utClients.forEach(a => {
         console.log(a);
-        group.clients.push(a.client);
+        if (a.allowed === true) group.clients.push(a.client);
+        else {
+          let idx = group.clients.indexOf(a.client, 0);
+          if (idx >= 0) group.clients.splice(idx, 1);
+          console.log(group.clients);
+        }
       });
       authUser.clients = group.clients;
       authUser.permissions = this.getUserPermissions(utPerms, role.permissions);

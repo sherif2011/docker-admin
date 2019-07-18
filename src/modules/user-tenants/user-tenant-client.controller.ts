@@ -19,6 +19,7 @@ import {
 } from '@loopback/rest';
 import {UserTenantClient} from '../../models';
 import {UserTenantClientRepository} from '../../repositories';
+import {authorize} from 'loopback4-authorization';
 
 export class UserTenantClientController {
   constructor(
@@ -26,6 +27,7 @@ export class UserTenantClientController {
     public userTenantClientRepository: UserTenantClientRepository,
   ) {}
 
+  @authorize(['*'])
   @post('/user-tenant-clients', {
     responses: {
       '200': {
@@ -42,6 +44,7 @@ export class UserTenantClientController {
     return await this.userTenantClientRepository.create(userTenantClient);
   }
 
+  @authorize(['*'])
   @get('/user-tenant-clients/count', {
     responses: {
       '200': {
@@ -57,6 +60,7 @@ export class UserTenantClientController {
     return await this.userTenantClientRepository.count(where);
   }
 
+  @authorize(['*'])
   @get('/user-tenant-clients', {
     responses: {
       '200': {
@@ -76,6 +80,7 @@ export class UserTenantClientController {
     return await this.userTenantClientRepository.find(filter);
   }
 
+  @authorize(['*'])
   @patch('/user-tenant-clients', {
     responses: {
       '200': {
@@ -102,6 +107,7 @@ export class UserTenantClientController {
     );
   }
 
+  @authorize(['*'])
   @get('/user-tenant-clients/{id}', {
     responses: {
       '200': {
@@ -118,6 +124,7 @@ export class UserTenantClientController {
     return await this.userTenantClientRepository.findById(id);
   }
 
+  @authorize(['*'])
   @patch('/user-tenant-clients/{id}', {
     responses: {
       '204': {
@@ -139,6 +146,7 @@ export class UserTenantClientController {
     await this.userTenantClientRepository.updateById(id, userTenantClient);
   }
 
+  @authorize(['*'])
   @put('/user-tenant-clients/{id}', {
     responses: {
       '204': {
@@ -153,6 +161,7 @@ export class UserTenantClientController {
     await this.userTenantClientRepository.replaceById(id, userTenantClient);
   }
 
+  @authorize(['*'])
   @del('/user-tenant-clients/{id}', {
     responses: {
       '204': {

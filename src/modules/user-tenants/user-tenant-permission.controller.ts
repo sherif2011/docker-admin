@@ -19,6 +19,7 @@ import {
 } from '@loopback/rest';
 import {UserTenantPermission} from '../../models';
 import {UserTenantPermissionRepository} from '../../repositories';
+import {authorize} from 'loopback4-authorization';
 
 export class UserTenantPermissionController {
   constructor(
@@ -26,6 +27,7 @@ export class UserTenantPermissionController {
     public userTenantPermissionRepository: UserTenantPermissionRepository,
   ) {}
 
+  @authorize(['*'])
   @post('/user-tenant-permissions', {
     responses: {
       '200': {
@@ -44,6 +46,7 @@ export class UserTenantPermissionController {
     );
   }
 
+  @authorize(['*'])
   @get('/user-tenant-permissions/count', {
     responses: {
       '200': {
@@ -59,6 +62,7 @@ export class UserTenantPermissionController {
     return await this.userTenantPermissionRepository.count(where);
   }
 
+  @authorize(['*'])
   @get('/user-tenant-permissions', {
     responses: {
       '200': {
@@ -78,6 +82,7 @@ export class UserTenantPermissionController {
     return await this.userTenantPermissionRepository.find(filter);
   }
 
+  @authorize(['*'])
   @patch('/user-tenant-permissions', {
     responses: {
       '200': {
@@ -104,6 +109,7 @@ export class UserTenantPermissionController {
     );
   }
 
+  @authorize(['*'])
   @get('/user-tenant-permissions/{id}', {
     responses: {
       '200': {
@@ -120,6 +126,7 @@ export class UserTenantPermissionController {
     return await this.userTenantPermissionRepository.findById(id);
   }
 
+  @authorize(['*'])
   @patch('/user-tenant-permissions/{id}', {
     responses: {
       '204': {
@@ -144,6 +151,7 @@ export class UserTenantPermissionController {
     );
   }
 
+  @authorize(['*'])
   @put('/user-tenant-permissions/{id}', {
     responses: {
       '204': {
@@ -161,6 +169,7 @@ export class UserTenantPermissionController {
     );
   }
 
+  @authorize(['*'])
   @del('/user-tenant-permissions/{id}', {
     responses: {
       '204': {

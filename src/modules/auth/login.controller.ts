@@ -36,6 +36,7 @@ import {
   UserRepository,
   UserTenantPermissionRepository,
   UserTenantRepository,
+  UserTenantClientRepository,
 } from '../../repositories';
 import {AuthRefreshTokenRequest, AuthTokenRequest, LoginRequest} from './';
 import {AuthenticateErrorKeys} from './error-keys';
@@ -59,6 +60,8 @@ export class LoginController {
     public userTenantRepo: UserTenantRepository,
     @repository(UserTenantPermissionRepository)
     public utPermsRepo: UserTenantPermissionRepository,
+    @repository(UserTenantClientRepository)
+    public utClientsRepo: UserTenantClientRepository,
     @repository(RefreshTokenRepository)
     public refreshTokenRepo: RefreshTokenRepository,
   ) {}
@@ -382,9 +385,22 @@ export class LoginController {
           allowed: true,
         },
       });
+      const utClients = await this.utClientsRepo.find({
+        where: {
+          userTenantId: userTenant.id,
+        },
+        fields: {
+          client: true,
+          allowed: true,
+        },
+      });
+      utClients.forEach(a => {
+        console.log(a);
+        group.clients.push(a.client);
+      });
+      authUser.clients = group.clients;
       authUser.permissions = this.getUserPermissions(utPerms, role.permissions);
       authUser.role = role.roleKey.toString();
-      authUser.clients = group.clients;
       const accessToken = jwt.sign(
         authUser.toJSON(),
         process.env.JWT_SECRET as string,

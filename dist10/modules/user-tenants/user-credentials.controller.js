@@ -22,7 +22,6 @@ let UserCredentialsController = class UserCredentialsController {
         this.userRepository = userRepository;
     }
     async createAccount(userId, credentials) {
-        console.log('hello!');
         return await this.userRepository.credentials(userId).create(credentials);
     }
 };

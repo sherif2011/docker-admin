@@ -2,6 +2,7 @@ import {post, param, requestBody} from '@loopback/rest';
 import {UserRepository} from '../../repositories';
 import {User, UserCredentials} from '../../models';
 import {repository} from '@loopback/repository';
+import {authorize} from 'loopback4-authorization';
 
 export class UserCredentialsController {
   constructor(
@@ -9,6 +10,7 @@ export class UserCredentialsController {
     protected userRepository: UserRepository,
   ) {}
 
+  @authorize(['*'])
   @post('/users/{id}/credentials')
   async createAccount(
     @param.path.number('id') userId: typeof User.prototype.id,

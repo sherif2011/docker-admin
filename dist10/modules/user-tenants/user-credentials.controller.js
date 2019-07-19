@@ -16,15 +16,18 @@ const rest_1 = require("@loopback/rest");
 const repositories_1 = require("../../repositories");
 const models_1 = require("../../models");
 const repository_1 = require("@loopback/repository");
+const loopback4_authorization_1 = require("loopback4-authorization");
 let UserCredentialsController = class UserCredentialsController {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     async createAccount(userId, credentials) {
+        console.log('hello!');
         return await this.userRepository.credentials(userId).create(credentials);
     }
 };
 __decorate([
+    loopback4_authorization_1.authorize(['*']),
     rest_1.post('/users/{id}/credentials'),
     __param(0, rest_1.param.path.number('id')),
     __param(1, rest_1.requestBody()),

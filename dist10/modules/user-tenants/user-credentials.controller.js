@@ -21,7 +21,7 @@ let UserCredentialsController = class UserCredentialsController {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    async createAccount(userId, credentials) {
+    async createCredential(userId, credentials) {
         return await this.userRepository.credentials(userId).create(credentials);
     }
 };
@@ -33,7 +33,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, models_1.UserCredentials]),
     __metadata("design:returntype", Promise)
-], UserCredentialsController.prototype, "createAccount", null);
+], UserCredentialsController.prototype, "createCredential", null);
 UserCredentialsController = __decorate([
     __param(0, repository_1.repository(repositories_1.UserRepository)),
     __metadata("design:paramtypes", [repositories_1.UserRepository])

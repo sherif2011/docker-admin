@@ -12,7 +12,7 @@ export class UserCredentialsController {
 
   @authorize(['*'])
   @post('/users/{id}/credentials')
-  async createAccount(
+  async createCredential(
     @param.path.number('id') userId: typeof User.prototype.id,
     @requestBody() credentials: UserCredentials,
   ): Promise<UserCredentials> {

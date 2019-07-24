@@ -55,6 +55,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+.env
 
 # Generated apidocs
 api-docs/
@@ -62,3 +63,4 @@ api-docs/
 # Transpiled JavaScript files from Typescript
 
 *.tsbuildinfo
+

@@ -17,11 +17,15 @@ const repositories_1 = require("../../repositories");
 const models_1 = require("../../models");
 const repository_1 = require("@loopback/repository");
 const loopback4_authorization_1 = require("loopback4-authorization");
+const bcrypt = require("bcrypt");
 let UserCredentialsController = class UserCredentialsController {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     async createCredential(userId, credentials) {
+        let saltRounds = 10;
+        await this.userRepository.credentials(userId).delete();
+        credentials.password = await bcrypt.hash(credentials.password, saltRounds);
         return await this.userRepository.credentials(userId).create(credentials);
     }
 };

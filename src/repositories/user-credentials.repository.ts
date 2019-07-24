@@ -2,9 +2,9 @@ import {inject} from '@loopback/core';
 
 import {PgdbDataSource} from '../datasources';
 import {UserCredentials, UserCredentialsRelations} from '../models';
-import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
+import {DefaultCrudRepository} from '@loopback/repository';
 
-export class UserCredentialsRepository extends DefaultSoftCrudRepository<
+export class UserCredentialsRepository extends DefaultCrudRepository<
   UserCredentials,
   typeof UserCredentials.prototype.id,
   UserCredentialsRelations

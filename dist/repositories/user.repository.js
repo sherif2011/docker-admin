@@ -44,11 +44,8 @@ let UserRepository = class UserRepository extends default_user_modify_crud_repos
         return user;
     }
     async verifyPassword(username, password) {
-        console.log(username, password);
         const user = await super.findOne({ where: { username } });
         const creds = user && (await this.credentials(user.id).get());
-        console.log(user);
-        console.log(creds);
         if (!user || user.deleted || !creds || !creds.password) {
             throw new rest_1.HttpErrors.Unauthorized("UserDoesNotExist" /* UserDoesNotExist */);
         }

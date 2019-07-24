@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@loopback/core");
 const datasources_1 = require("../datasources");
 const models_1 = require("../models");
-const default_soft_crud_repository_base_1 = require("./default-soft-crud.repository.base");
-let UserCredentialsRepository = class UserCredentialsRepository extends default_soft_crud_repository_base_1.DefaultSoftCrudRepository {
+const repository_1 = require("@loopback/repository");
+let UserCredentialsRepository = class UserCredentialsRepository extends repository_1.DefaultCrudRepository {
     constructor(dataSource) {
         super(models_1.UserCredentials, dataSource);
     }

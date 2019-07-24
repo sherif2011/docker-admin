@@ -63,11 +63,8 @@ export class UserRepository extends DefaultUserModifyCrudRepository<
   }
 
   async verifyPassword(username: string, password: string): Promise<User> {
-    console.log(username, password);
     const user = await super.findOne({where: {username}});
     const creds = user && (await this.credentials(user.id).get());
-    console.log(user);
-    console.log(creds);
     if (!user || user.deleted || !creds || !creds.password) {
       throw new HttpErrors.Unauthorized(AuthenticateErrorKeys.UserDoesNotExist);
     } else if (!(await bcrypt.compare(password, creds.password))) {

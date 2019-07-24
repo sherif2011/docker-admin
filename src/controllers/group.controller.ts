@@ -41,6 +41,7 @@ export class GroupController {
     return await this.groupRepository.create(group);
   }
 
+  @authorize(['*'])
   @get('/groups/count', {
     responses: {
       '200': {
@@ -55,6 +56,7 @@ export class GroupController {
     return await this.groupRepository.count(where);
   }
 
+  @authorize(['*'])
   @get('/groups', {
     responses: {
       '200': {

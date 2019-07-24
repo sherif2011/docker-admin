@@ -63,6 +63,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "create", null);
 __decorate([
+    loopback4_authorization_1.authorize(['*']),
     rest_1.get('/groups/count', {
         responses: {
             '200': {
@@ -77,6 +78,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], GroupController.prototype, "count", null);
 __decorate([
+    loopback4_authorization_1.authorize(['*']),
     rest_1.get('/groups', {
         responses: {
             '200': {

@@ -16,9 +16,9 @@ export class GroupRepository extends DefaultCrudRepository<
     //const role = await super.create(entity, options);
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
-    const query = `INSERT INTO admin.roles(
-      clients, name, deleted)
-      VALUES ('${clients}', '${entity.name}', '${entity.deleted}')`;
+    const query = `INSERT INTO admin.groups(
+      clients, name)
+      VALUES ('${clients}', '${entity.name}')`;
     await super.execute(query, []);
     return (await this.findOne({
       order: ['createdOn DESC'],
@@ -28,18 +28,16 @@ export class GroupRepository extends DefaultCrudRepository<
   async updateById(id: number, entity: DataObject<Group>): Promise<void> {
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
-    const query = `UPDATE admin.roles SET
-     permissions='${clients}',  name='${entity.name}',
-     deleted='${entity.deleted}' WHERE id=${id}`;
+    const query = `UPDATE admin.groups SET
+     clients='${clients}',  name='${entity.name}' WHERE id=${id}`;
     await super.execute(query, []);
   }
 
   async replaceById(id: number, entity: DataObject<Group>): Promise<void> {
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
-    const query = `UPDATE admin.roles SET
-     permissions='${clients}',  name='${entity.name}',
-     deleted='${entity.deleted}' WHERE id=${id}`;
+    const query = `UPDATE admin.groups SET
+    clients='${clients}',  name='${entity.name}' WHERE id=${id}`;
     await super.execute(query, []);
   }
 }

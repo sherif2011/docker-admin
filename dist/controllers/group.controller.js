@@ -16,11 +16,13 @@ const repository_1 = require("@loopback/repository");
 const rest_1 = require("@loopback/rest");
 const models_1 = require("../models");
 const repositories_1 = require("../repositories");
+const loopback4_authorization_1 = require("loopback4-authorization");
 let GroupController = class GroupController {
     constructor(groupRepository) {
         this.groupRepository = groupRepository;
     }
     async create(group) {
+        console.log('i am here!');
         return await this.groupRepository.create(group);
     }
     async count(where) {
@@ -46,6 +48,7 @@ let GroupController = class GroupController {
     }
 };
 __decorate([
+    loopback4_authorization_1.authorize(['*']),
     rest_1.post('/groups', {
         responses: {
             '200': {

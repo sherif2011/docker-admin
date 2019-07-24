@@ -83,7 +83,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "lastLogin", void 0);
 __decorate([
-    repository_1.hasOne(() => user_credentials_model_1.UserCredentials, { keyTo: 'user_id' }),
+    repository_1.hasOne(() => user_credentials_model_1.UserCredentials, { keyTo: 'userId' }),
     __metadata("design:type", user_credentials_model_1.UserCredentials)
 ], User.prototype, "credentials", void 0);
 User = __decorate([

@@ -19,13 +19,15 @@ import {
 } from '@loopback/rest';
 import {Group} from '../models';
 import {GroupRepository} from '../repositories';
+import {authorize} from 'loopback4-authorization';
 
 export class GroupController {
   constructor(
     @repository(GroupRepository)
-    public groupRepository : GroupRepository,
+    public groupRepository: GroupRepository,
   ) {}
 
+  @authorize(['*'])
   @post('/groups', {
     responses: {
       '200': {
@@ -35,6 +37,7 @@ export class GroupController {
     },
   })
   async create(@requestBody() group: Group): Promise<Group> {
+    console.log('i am here!');
     return await this.groupRepository.create(group);
   }
 
@@ -65,7 +68,8 @@ export class GroupController {
     },
   })
   async find(
-    @param.query.object('filter', getFilterSchemaFor(Group)) filter?: Filter<Group>,
+    @param.query.object('filter', getFilterSchemaFor(Group))
+    filter?: Filter<Group>,
   ): Promise<Group[]> {
     return await this.groupRepository.find(filter);
   }

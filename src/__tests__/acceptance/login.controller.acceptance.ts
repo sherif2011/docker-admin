@@ -18,7 +18,7 @@ describe('Login/Out Controllers', () => {
     username: 'super_admin',
   };
 
-  exports.tokenDetails = {
+  let tokenDetails = {
     accessToken: '',
     refreshToken: '',
   };
@@ -59,49 +59,19 @@ describe('Login/Out Controllers', () => {
       .send(authDetails)
       .expect(200)
       .expect(function(res) {
-        exports.tokenDetails = res.body;
-      });
-  });
-
-  it('logout super admin', async () => {
-    await client
-      .post('/logout/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + exports.tokenDetails.accessToken)
-      .expect(200);
-  });
-
-  it('re-login as super_admin', async () => {
-    await client
-      .post('/auth/login/')
-      .set('Accept', 'application/json')
-      .send(loginDetails)
-      .expect(200)
-      .expect(function(res) {
-        authDetails.code = res.body.code.trim();
-      });
-  });
-
-  it('retrieve access token', async () => {
-    await client
-      .post('/auth/token/')
-      .set('Accept', 'application/json')
-      .send(authDetails)
-      .expect(200)
-      .expect(function(res) {
-        exports.tokenDetails = res.body;
+        tokenDetails = res.body;
       });
   });
 
   it('refresh access token', async () => {
-    refreshDetails.refreshToken = exports.tokenDetails.refreshToken;
+    refreshDetails.refreshToken = tokenDetails.refreshToken;
     await client
       .post('/auth/token-refresh/')
       .set('Accept', 'application/json')
       .send(refreshDetails)
       .expect(200)
       .expect(function(res) {
-        exports.tokenDetails = res.body;
+        tokenDetails = res.body;
       });
   });
 
@@ -109,7 +79,7 @@ describe('Login/Out Controllers', () => {
     await client
       .post('/users/1/credentials/')
       .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + exports.tokenDetails.accessToken)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(resetDetails)
       .expect(200);
   });
@@ -119,42 +89,56 @@ describe('Login/Out Controllers', () => {
     await client
       .post('/users/1/credentials/')
       .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + exports.tokenDetails.accessToken)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(resetDetails)
       .expect(200);
   });
 
-  it('re-login as super_admin', async () => {
-    await client
-      .post('/auth/login/')
-      .set('Accept', 'application/json')
-      .send(loginDetails)
-      .expect(200)
-      .expect(function(res) {
-        authDetails.code = res.body.code.trim();
-      });
-  });
-
-  it('retrieve access token', async () => {
-    await client
-      .post('/auth/token/')
-      .set('Accept', 'application/json')
-      .send(authDetails)
-      .expect(200)
-      .expect(function(res) {
-        exports.tokenDetails = res.body;
-      });
-  });
-
-  it('refresh access token', async () => {
-    refreshDetails.refreshToken = exports.tokenDetails.refreshToken;
-    await client
-      .post('/auth/token-refresh/')
-      .set('Accept', 'application/json')
-      .send(refreshDetails)
-      .expect(200)
-      .expect(function(res) {
-        exports.tokenDetails = res.body;
-      });
-  });
+  // it('logout super admin', async () => {
+  //   await client
+  //     .post('/logout/')
+  //     .set('Accept', 'application/json')
+  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+  //     .expect(200);
+  // });
 });
+
+exports.login = async function(client: Client) {
+  let loginDetails = {
+    client_id: 'l2app',
+    client_secret: 'qiweu12!@',
+    username: 'super_admin',
+    password: 'test123!@#',
+  };
+
+  let authDetails = {
+    code: '',
+    clientId: 'l2app',
+    username: 'super_admin',
+  };
+
+  let tokenDetails = {
+    accessToken: '',
+    refreshToken: '',
+  };
+
+  await client
+    .post('/auth/login/')
+    .set('Accept', 'application/json')
+    .send(loginDetails)
+    .expect(200)
+    .expect(function(res) {
+      authDetails.code = res.body.code.trim();
+    });
+
+  await client
+    .post('/auth/token/')
+    .set('Accept', 'application/json')
+    .send(authDetails)
+    .expect(200)
+    .expect(function(res) {
+      tokenDetails = res.body;
+    });
+
+  return tokenDetails;
+};

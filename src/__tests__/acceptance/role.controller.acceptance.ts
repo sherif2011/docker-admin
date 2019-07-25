@@ -15,7 +15,6 @@ describe('Role Controller', () => {
 
   let roleDetails = {
     deleted: false,
-    id: 10,
     name: 'test-role',
     permissions: ['permission1', 'permission2', 'permission3'],
     roleKey: 10,
@@ -24,7 +23,7 @@ describe('Role Controller', () => {
   before('setupApplication', async () => {
     ({app, client} = await setupApplication());
     tokenDetails = await loginDetails.login(client);
-    console.log(tokenDetails.accessToken);
+    //console.log(tokenDetails);
   });
 
   it('get roles', async () => {
@@ -35,14 +34,21 @@ describe('Role Controller', () => {
       .expect(200);
   });
 
-  // it('post roles', async () => {
-  //   await client
-  //     .post('/roles/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
-  //     .expect(200);
-  // });
+  it('post roles', async () => {
+    await client
+      .post('/roles/')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(roleDetails)
+      .expect(200);
+  });
+
+  it('get roles count', async () => {
+    await client
+      .get('/roles/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
 
   // it('put roles by id', async () => {
   //   await client
@@ -50,13 +56,12 @@ describe('Role Controller', () => {
   //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .send(roleDetails)
-  //     .expect(200);
+  //     .expect(204);
   // });
 
   // it('get role by id', async () => {
   //   await client
   //     .get('/roles/10/')
-  //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .expect(200);
   // });
@@ -67,24 +72,14 @@ describe('Role Controller', () => {
   //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .send(roleDetails)
-  //     .expect(200);
-  // });
-
-  // it('patch roles', async () => {
-  //   await client
-  //     .patch('/roles/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
-  //     .expect(200);
+  //     .expect(204);
   // });
 
   // it('delete role by id', async () => {
   //   await client
   //     .delete('/roles/10/')
-  //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(200);
+  //     .expect(204);
   // });
 
   after(async () => {

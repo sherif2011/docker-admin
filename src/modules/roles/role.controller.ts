@@ -21,7 +21,7 @@ import {authorize} from 'loopback4-authorization';
 
 import {Role} from '../../models';
 import {RoleRepository} from '../../repositories';
-import {PermissionKey} from '../auth/permission-key.enum';
+//import {PermissionKey} from '../auth/permission-key.enum';
 
 export class RoleController {
   constructor(

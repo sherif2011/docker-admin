@@ -37,7 +37,6 @@ export class GroupController {
     },
   })
   async create(@requestBody() group: Group): Promise<Group> {
-    console.log('i am here!');
     return await this.groupRepository.create(group);
   }
 

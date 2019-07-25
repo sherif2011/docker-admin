@@ -4,7 +4,7 @@ import {setupApplication} from './test-helper';
 
 let loginDetails = require('./login.controller.acceptance');
 
-describe('Role Controller', () => {
+describe('Group Controller', () => {
   let app: Loopback4StarterApplication;
   let client: Client;
 
@@ -13,11 +13,10 @@ describe('Role Controller', () => {
     refreshToken: '',
   };
 
-  let roleDetails = {
+  let groupDetails = {
     deleted: false,
     name: 'test-group',
-    permissions: ['client1', 'client2', 'client3'],
-    roleKey: 0,
+    clients: ['client1', 'client2', 'client3'],
   };
 
   before('setupApplication', async () => {
@@ -26,58 +25,58 @@ describe('Role Controller', () => {
     //console.log(tokenDetails);
   });
 
-  it('get roles', async () => {
+  it('get groups', async () => {
     await client
-      .get('/roles/')
+      .get('/groups/')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
-  it('post roles', async () => {
+  it('post groups', async () => {
     await client
-      .post('/roles/')
+      .post('/groups/')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .send(roleDetails)
+      .send(groupDetails)
       .expect(200);
   });
 
-  // it('get roles count', async () => {
+  it('get groups count', async () => {
+    await client
+      .get('/groups/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
+
+  // it('put group by id', async () => {
   //   await client
-  //     .get('/roles/count')
+  //     .put('/groups/2/')
+  //     .set('Accept', 'application/json')
+  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+  //     .send(groupDetails)
+  //     .expect(204);
+  // });
+
+  // it('get group by id', async () => {
+  //   await client
+  //     .get('/groups/2/')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .expect(200);
   // });
 
-  // it('put roles by id', async () => {
+  // it('patch group by id', async () => {
   //   await client
-  //     .put('/roles/4/')
+  //     .patch('/groups/2/')
   //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
+  //     .send(groupDetails)
   //     .expect(204);
   // });
 
-  // it('get role by id', async () => {
+  // it('delete group by id', async () => {
   //   await client
-  //     .get('/roles/4/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(200);
-  // });
-
-  // it('patch role by id', async () => {
-  //   await client
-  //     .patch('/roles/10/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
-  //     .expect(204);
-  // });
-
-  // it('delete role by id', async () => {
-  //   await client
-  //     .delete('/roles/10/')
+  //     .delete('/groups/2/')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .expect(204);
   // });

@@ -20,6 +20,7 @@ import {
 import {Group} from '../models';
 import {GroupRepository} from '../repositories';
 import {authorize} from 'loopback4-authorization';
+import {STRATEGY, authenticate} from 'loopback4-authentication';
 
 export class GroupController {
   constructor(
@@ -37,10 +38,10 @@ export class GroupController {
     },
   })
   async create(@requestBody() group: Group): Promise<Group> {
-    console.log('i am here!');
     return await this.groupRepository.create(group);
   }
 
+  @authenticate(STRATEGY.BEARER)
   @authorize(['*'])
   @get('/groups/count', {
     responses: {
@@ -56,6 +57,7 @@ export class GroupController {
     return await this.groupRepository.count(where);
   }
 
+  @authenticate(STRATEGY.BEARER)
   @authorize(['*'])
   @get('/groups', {
     responses: {
@@ -76,6 +78,8 @@ export class GroupController {
     return await this.groupRepository.find(filter);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize(['*'])
   @patch('/groups', {
     responses: {
       '200': {
@@ -98,6 +102,8 @@ export class GroupController {
     return await this.groupRepository.updateAll(group, where);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize(['*'])
   @get('/groups/{id}', {
     responses: {
       '200': {
@@ -110,6 +116,8 @@ export class GroupController {
     return await this.groupRepository.findById(id);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize(['*'])
   @patch('/groups/{id}', {
     responses: {
       '204': {
@@ -131,6 +139,8 @@ export class GroupController {
     await this.groupRepository.updateById(id, group);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize(['*'])
   @put('/groups/{id}', {
     responses: {
       '204': {
@@ -145,6 +155,8 @@ export class GroupController {
     await this.groupRepository.replaceById(id, group);
   }
 
+  @authenticate(STRATEGY.BEARER)
+  @authorize(['*'])
   @del('/groups/{id}', {
     responses: {
       '204': {

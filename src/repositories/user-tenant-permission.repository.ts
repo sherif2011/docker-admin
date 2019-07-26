@@ -36,12 +36,12 @@
 //     );
 //   }
 // }
-import {DefaultCrudRepository} from '@loopback/repository';
 import {UserTenantPermission, UserTenantPermissionRelations} from '../models';
 import {PgdbDataSource} from '../datasources';
 import {inject} from '@loopback/core';
+import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
 
-export class UserTenantPermissionRepository extends DefaultCrudRepository<
+export class UserTenantPermissionRepository extends DefaultSoftCrudRepository<
   UserTenantPermission,
   typeof UserTenantPermission.prototype.id,
   UserTenantPermissionRelations

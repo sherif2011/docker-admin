@@ -30,7 +30,7 @@ export class UserController {
   ) {}
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([PermissionKey.CreateAnyUser, PermissionKey.CreateTenantUser])
+  @authorize(['*'])
   @post('/users', {
     responses: {
       '200': {
@@ -44,11 +44,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.ViewAnyUser,
-    PermissionKey.ViewOwnUser,
-    PermissionKey.ViewTenantUser,
-  ])
+  @authorize(['*'])
   @get('/users/count', {
     responses: {
       '200': {
@@ -64,11 +60,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.ViewAnyUser,
-    PermissionKey.ViewOwnUser,
-    PermissionKey.ViewTenantUser,
-  ])
+  @authorize(['*'])
   @get('/users', {
     responses: {
       '200': {
@@ -89,11 +81,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.UpdateAnyUser,
-    PermissionKey.UpdateOwnUser,
-    PermissionKey.UpdateTenantUser,
-  ])
+  @authorize(['*'])
   @patch('/users', {
     responses: {
       '200': {
@@ -110,11 +98,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.ViewAnyUser,
-    PermissionKey.ViewOwnUser,
-    PermissionKey.ViewTenantUser,
-  ])
+  @authorize(['*'])
   @get('/users/{id}', {
     responses: {
       '200': {
@@ -128,11 +112,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.UpdateAnyUser,
-    PermissionKey.UpdateOwnUser,
-    PermissionKey.UpdateTenantUser,
-  ])
+  @authorize(['*'])
   @patch('/users/{id}', {
     responses: {
       '204': {
@@ -148,11 +128,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([
-    PermissionKey.UpdateAnyUser,
-    PermissionKey.UpdateOwnUser,
-    PermissionKey.UpdateTenantUser,
-  ])
+  @authorize(['*'])
   @put('/users/{id}', {
     responses: {
       '204': {
@@ -168,7 +144,7 @@ export class UserController {
   }
 
   @authenticate(STRATEGY.BEARER)
-  @authorize([PermissionKey.DeleteAnyUser, PermissionKey.DeleteTenantUser])
+  @authorize(['*'])
   @del('/users/{id}', {
     responses: {
       '204': {

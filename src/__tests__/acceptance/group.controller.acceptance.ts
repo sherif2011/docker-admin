@@ -19,23 +19,23 @@ describe('Group Controller', () => {
     clients: ['client1', 'client2', 'client3'],
   };
 
-  let groupDetailsPut = {
-    //id: 2,
-    deleted: false,
-    name: 'test-group',
-    clients: ['client1', 'client2', 'client3'],
-  };
-
   before('setupApplication', async () => {
     ({app, client} = await setupApplication());
     tokenDetails = await loginDetails.login(client);
-    console.log(tokenDetails);
+    //console.log(tokenDetails);
   });
 
   it('get groups', async () => {
     await client
       .get('/groups/')
       .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
+
+  it('get groups count', async () => {
+    await client
+      .get('/groups/count')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
@@ -49,19 +49,19 @@ describe('Group Controller', () => {
       .expect(200);
   });
 
-  it('get groups count', async () => {
-    await client
-      .get('/groups/count')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
+  // it('delete group by id', async () => {
+  //   await client
+  //     .delete('/groups/2/')
+  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+  //     .expect(204);
+  // });
 
   it('put group by id', async () => {
     await client
       .put('/groups/2')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .send(groupDetailsPut)
+      .send(groupDetails)
       .expect(204);
   });
 
@@ -78,13 +78,6 @@ describe('Group Controller', () => {
   //     .set('Accept', 'application/json')
   //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .send(groupDetails)
-  //     .expect(204);
-  // });
-
-  // it('delete group by id', async () => {
-  //   await client
-  //     .delete('/groups/2/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
   //     .expect(204);
   // });
 

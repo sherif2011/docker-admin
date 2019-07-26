@@ -9,6 +9,7 @@ export class Group extends BaseEntity {
   @property({
     type: 'number',
     id: true,
+    required: false,
   })
   id?: number;
 

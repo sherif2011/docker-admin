@@ -34,6 +34,13 @@ describe('Role Controller', () => {
       .expect(200);
   });
 
+  it('get roles count', async () => {
+    await client
+      .get('/roles/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
+
   it('post roles', async () => {
     await client
       .post('/roles/')
@@ -43,44 +50,37 @@ describe('Role Controller', () => {
       .expect(200);
   });
 
-  // it('get roles count', async () => {
-  //   await client
-  //     .get('/roles/count')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(200);
-  // });
+  it('delete role by id', async () => {
+    await client
+      .delete('/roles/4/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(204);
+  });
 
-  // it('put roles by id', async () => {
-  //   await client
-  //     .put('/roles/4/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
-  //     .expect(204);
-  // });
+  it('put roles by id', async () => {
+    await client
+      .put('/roles/4/')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(roleDetails)
+      .expect(204);
+  });
 
-  // it('get role by id', async () => {
-  //   await client
-  //     .get('/roles/4/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(200);
-  // });
+  it('get role by id', async () => {
+    await client
+      .get('/roles/4/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
 
-  // it('patch role by id', async () => {
-  //   await client
-  //     .patch('/roles/10/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(roleDetails)
-  //     .expect(204);
-  // });
-
-  // it('delete role by id', async () => {
-  //   await client
-  //     .delete('/roles/10/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(204);
-  // });
+  it('patch role by id', async () => {
+    await client
+      .patch('/roles/4/')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(roleDetails)
+      .expect(204);
+  });
 
   after(async () => {
     await app.stop();

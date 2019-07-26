@@ -10,6 +10,7 @@ export class Role extends BaseEntity {
   @property({
     type: 'number',
     id: true,
+    required: false,
   })
   id?: number;
 

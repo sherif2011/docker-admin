@@ -49,12 +49,12 @@ describe('Group Controller', () => {
       .expect(200);
   });
 
-  // it('delete group by id', async () => {
-  //   await client
-  //     .delete('/groups/2/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(204);
-  // });
+  it('delete group by id', async () => {
+    await client
+      .delete('/groups/2/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(204);
+  });
 
   it('put group by id', async () => {
     await client
@@ -65,21 +65,21 @@ describe('Group Controller', () => {
       .expect(204);
   });
 
-  // it('get group by id', async () => {
-  //   await client
-  //     .get('/groups/2/')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .expect(200);
-  // });
+  it('get group by id', async () => {
+    await client
+      .get('/groups/2/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
 
-  // it('patch group by id', async () => {
-  //   await client
-  //     .patch('/groups/2/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(groupDetails)
-  //     .expect(204);
-  // });
+  it('patch group by id', async () => {
+    await client
+      .patch('/groups/2/')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(groupDetails)
+      .expect(204);
+  });
 
   after(async () => {
     await app.stop();

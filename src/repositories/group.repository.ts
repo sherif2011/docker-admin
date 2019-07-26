@@ -1,9 +1,10 @@
-import {DefaultCrudRepository, DataObject, Options} from '@loopback/repository';
+import {DataObject, Options} from '@loopback/repository';
 import {Group, GroupRelations} from '../models';
 import {PgdbDataSource} from '../datasources';
 import {inject} from '@loopback/core';
+import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
 
-export class GroupRepository extends DefaultCrudRepository<
+export class GroupRepository extends DefaultSoftCrudRepository<
   Group,
   typeof Group.prototype.id,
   GroupRelations
@@ -17,8 +18,8 @@ export class GroupRepository extends DefaultCrudRepository<
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `INSERT INTO admin.groups(
-      clients, name)
-      VALUES ('${clients}', '${entity.name}')`;
+      clients, name, deleted)
+      VALUES ('${clients}', '${entity.name}', '${entity.deleted}')`;
     await super.execute(query, []);
     return (await this.findOne({
       order: ['createdOn DESC'],
@@ -29,7 +30,9 @@ export class GroupRepository extends DefaultCrudRepository<
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `UPDATE admin.groups SET
-     clients='${clients}',  name='${entity.name}' WHERE id=${id}`;
+     clients='${clients}',  name='${entity.name}', deleted='${
+      entity.deleted
+    }' WHERE id=${id}`;
     await super.execute(query, []);
   }
 
@@ -37,7 +40,9 @@ export class GroupRepository extends DefaultCrudRepository<
     const clients = `{${entity.clients ? entity.clients.join() : ''}}`;
 
     const query = `UPDATE admin.groups SET
-    clients='${clients}',  name='${entity.name}' WHERE id=${id}`;
+    clients='${clients}',  name='${entity.name}', deleted='${
+      entity.deleted
+    }' WHERE id=${id}`;
     await super.execute(query, []);
   }
 }

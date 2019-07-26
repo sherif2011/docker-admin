@@ -14,6 +14,8 @@ CREATE SEQUENCE admin.groups_id_seq START WITH 1;
 
 CREATE SEQUENCE admin.tenants_id_seq START WITH 1;
 
+CREATE SEQUENCE admin.user_tenant_clients_id_seq START WITH 1;
+
 CREATE SEQUENCE admin.user_tenant_permissions_id_seq START WITH 1;
 
 CREATE SEQUENCE admin.user_tenant_roles_id_seq START WITH 1;

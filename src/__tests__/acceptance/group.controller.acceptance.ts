@@ -19,10 +19,17 @@ describe('Group Controller', () => {
     clients: ['client1', 'client2', 'client3'],
   };
 
+  let groupDetailsPut = {
+    //id: 2,
+    deleted: false,
+    name: 'test-group',
+    clients: ['client1', 'client2', 'client3'],
+  };
+
   before('setupApplication', async () => {
     ({app, client} = await setupApplication());
     tokenDetails = await loginDetails.login(client);
-    //console.log(tokenDetails);
+    console.log(tokenDetails);
   });
 
   it('get groups', async () => {
@@ -49,14 +56,14 @@ describe('Group Controller', () => {
       .expect(200);
   });
 
-  // it('put group by id', async () => {
-  //   await client
-  //     .put('/groups/2/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(groupDetails)
-  //     .expect(204);
-  // });
+  it('put group by id', async () => {
+    await client
+      .put('/groups/2')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(groupDetailsPut)
+      .expect(204);
+  });
 
   // it('get group by id', async () => {
   //   await client

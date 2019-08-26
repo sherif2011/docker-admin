@@ -1,9 +1,9 @@
-import {Client} from '@loopback/testlab';
-import {Loopback4StarterApplication} from '../..';
-import {setupApplication} from './test-helper';
+import { Client } from '@loopback/testlab';
+import { adminApplication } from '../..';
+import { setupApplication } from './test-helper';
 
 describe('Login/Out Controllers', () => {
-  let app: Loopback4StarterApplication;
+  let app: adminApplication;
   let client: Client;
   let loginDetails = {
     client_id: 'l2app',
@@ -34,7 +34,7 @@ describe('Login/Out Controllers', () => {
   };
 
   before('setupApplication', async () => {
-    ({app, client} = await setupApplication());
+    ({ app, client } = await setupApplication());
   });
 
   after(async () => {
@@ -47,7 +47,7 @@ describe('Login/Out Controllers', () => {
       .set('Accept', 'application/json')
       .send(loginDetails)
       .expect(200)
-      .expect(function(res) {
+      .expect(function (res) {
         authDetails.code = res.body.code.trim();
       });
   });
@@ -58,7 +58,7 @@ describe('Login/Out Controllers', () => {
       .set('Accept', 'application/json')
       .send(authDetails)
       .expect(200)
-      .expect(function(res) {
+      .expect(function (res) {
         tokenDetails = res.body;
       });
   });
@@ -70,7 +70,7 @@ describe('Login/Out Controllers', () => {
       .set('Accept', 'application/json')
       .send(refreshDetails)
       .expect(200)
-      .expect(function(res) {
+      .expect(function (res) {
         tokenDetails = res.body;
       });
   });
@@ -103,7 +103,7 @@ describe('Login/Out Controllers', () => {
   // });
 });
 
-exports.login = async function(client: Client) {
+exports.login = async function (client: Client) {
   let loginDetails = {
     client_id: 'l2app',
     client_secret: 'qiweu12!@',
@@ -127,7 +127,7 @@ exports.login = async function(client: Client) {
     .set('Accept', 'application/json')
     .send(loginDetails)
     .expect(200)
-    .expect(function(res) {
+    .expect(function (res) {
       authDetails.code = res.body.code.trim();
     });
 
@@ -136,7 +136,7 @@ exports.login = async function(client: Client) {
     .set('Accept', 'application/json')
     .send(authDetails)
     .expect(200)
-    .expect(function(res) {
+    .expect(function (res) {
       tokenDetails = res.body;
     });
 

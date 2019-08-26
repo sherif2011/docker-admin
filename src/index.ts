@@ -1,7 +1,7 @@
-import {AdminApplication} from './application';
-import {ApplicationConfig} from '@loopback/core';
+import { AdminApplication } from './application';
+import { ApplicationConfig } from '@loopback/core';
 
-export {AdminApplication as Loopback4StarterApplication};
+export { AdminApplication as adminApplication };
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new AdminApplication(options);

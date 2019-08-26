@@ -1,11 +1,11 @@
-import {Client} from '@loopback/testlab';
-import {Loopback4StarterApplication} from '../..';
-import {setupApplication} from './test-helper';
+import { Client } from '@loopback/testlab';
+import { adminApplication } from '../..';
+import { setupApplication } from './test-helper';
 
 let loginDetails = require('./login.controller.acceptance');
 
 describe('User-Tenant Clients Controller', () => {
-  let app: Loopback4StarterApplication;
+  let app: adminApplication;
   let client: Client;
 
   let tokenDetails = {
@@ -21,7 +21,7 @@ describe('User-Tenant Clients Controller', () => {
   };
 
   before('setupApplication', async () => {
-    ({app, client} = await setupApplication());
+    ({ app, client } = await setupApplication());
     tokenDetails = await loginDetails.login(client);
   });
 

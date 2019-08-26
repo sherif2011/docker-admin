@@ -75,8 +75,8 @@ Say the application you are developing is named 'To Do List'. Change as below.
 - package.json and package-lock.json - Replace loopback4-starter with to-do-list in entire file. Update description.
 - public/index.html - Update title tag and h1 tag inside body as per your app name.
 - src/application.ts - Rename class to ToDoListApplication and all its references. If you are using VSCode, select the class name, press F2 and then rename it. This will update all its references as well.
-- src/index.ts - Replace all refences of Loopback4StarterApplication with ToDoListApplication.
-- src/\_\_tests\_\_/\*\* - Replace all refences of Loopback4StarterApplication with ToDoListApplication.
+- src/index.ts - Replace all refences of adminApplication with ToDoListApplication.
+- src/\_\_tests\_\_/\*\* - Replace all refences of adminApplication with ToDoListApplication.
 - Update README.md with details of your application
 - Update CONTRIBUTING.md with details as per your application.
 

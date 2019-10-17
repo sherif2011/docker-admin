@@ -1,5 +1,5 @@
-import {inject} from '@loopback/context';
-import {repository} from '@loopback/repository';
+import { inject } from '@loopback/context';
+import { repository } from '@loopback/repository';
 import {
   get,
   HttpErrors,
@@ -25,11 +25,11 @@ import {
   authorize,
   UserPermissionsFn,
 } from 'loopback4-authorization';
-import {URLSearchParams} from 'url';
+import { URLSearchParams } from 'url';
 
-import {CONTENT_TYPE} from '../../controllers/content-type.constant';
-import {STATUS_CODE} from '../../controllers/status-codes.enum';
-import {AuthClient, RefreshToken, User} from '../../models';
+import { CONTENT_TYPE } from '../../controllers/content-type.constant';
+import { STATUS_CODE } from '../../controllers/status-codes.enum';
+import { AuthClient, RefreshToken, User } from '../../models';
 import {
   AuthClientRepository,
   RefreshTokenRepository,
@@ -38,10 +38,10 @@ import {
   UserTenantRepository,
   UserTenantClientRepository,
 } from '../../repositories';
-import {AuthRefreshTokenRequest, AuthTokenRequest, LoginRequest} from './';
-import {AuthenticateErrorKeys} from './error-keys';
-import {AuthUser} from './models/auth-user.model';
-import {TokenResponse} from './models/token-response.dto';
+import { AuthRefreshTokenRequest, AuthTokenRequest, LoginRequest } from './';
+import { AuthenticateErrorKeys } from './error-keys';
+import { AuthUser } from './models/auth-user.model';
+import { TokenResponse } from './models/token-response.dto';
 
 export class LoginController {
   // sonarignore_start
@@ -64,7 +64,7 @@ export class LoginController {
     public utClientsRepo: UserTenantClientRepository,
     @repository(RefreshTokenRepository)
     public refreshTokenRepo: RefreshTokenRepository,
-  ) {}
+  ) { }
   // sonarignore_end
 
   @authenticateClient(STRATEGY.CLIENT_PASSWORD)
@@ -121,7 +121,7 @@ export class LoginController {
         description: 'Token Response Model',
         content: {
           [CONTENT_TYPE.JSON]: {
-            schema: {'x-ts-type': TokenResponse},
+            schema: { 'x-ts-type': TokenResponse },
           },
         },
       },
@@ -157,7 +157,7 @@ export class LoginController {
         description: 'Token Response',
         content: {
           [CONTENT_TYPE.JSON]: {
-            schema: {'x-ts-type': TokenResponse},
+            schema: { 'x-ts-type': TokenResponse },
           },
         },
       },
@@ -203,7 +203,7 @@ export class LoginController {
         description: 'Token Response',
         content: {
           [CONTENT_TYPE.JSON]: {
-            schema: {'x-ts-type': TokenResponse},
+            schema: { 'x-ts-type': TokenResponse },
           },
         },
       },
@@ -227,7 +227,7 @@ export class LoginController {
       throw new HttpErrors.Unauthorized(AuthErrorKeys.ClientInvalid);
     }
     return this.createJWT(
-      {clientId: refreshPayload.clientId, userId: refreshPayload.userId},
+      { clientId: refreshPayload.clientId, userId: refreshPayload.userId },
       authClient,
     );
   }
@@ -260,7 +260,7 @@ export class LoginController {
         description: 'Token Response',
         content: {
           [CONTENT_TYPE.JSON]: {
-            schema: {'x-ts-type': TokenResponse},
+            schema: { 'x-ts-type': TokenResponse },
           },
         },
       },
@@ -271,7 +271,7 @@ export class LoginController {
     clientId?: string,
     @param.query.string('client_secret')
     clientSecret?: string,
-  ): Promise<void> {}
+  ): Promise<void> { }
 
   @authenticate(
     STRATEGY.GOOGLE_OAUTH2,
@@ -300,7 +300,7 @@ export class LoginController {
         description: 'Token Response',
         content: {
           [CONTENT_TYPE.JSON]: {
-            schema: {'x-ts-type': TokenResponse},
+            schema: { 'x-ts-type': TokenResponse },
           },
         },
       },
@@ -418,10 +418,10 @@ export class LoginController {
       // Set refresh token into redis for later verification
       await this.refreshTokenRepo.set(
         refreshToken,
-        {clientId: authClient.clientId, userId: user.id},
-        {ttl: authClient.refreshTokenExpiration * ms},
+        { clientId: authClient.clientId, userId: user.id },
+        { ttl: authClient.refreshTokenExpiration * ms },
       );
-      return new TokenResponse({accessToken, refreshToken});
+      return new TokenResponse({ accessToken, refreshToken });
     } catch (error) {
       // eslint-disable-next-line no-prototype-builtins
       if (HttpErrors.HttpError.prototype.isPrototypeOf(error)) {

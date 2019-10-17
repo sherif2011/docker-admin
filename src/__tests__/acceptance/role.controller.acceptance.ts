@@ -15,8 +15,8 @@ describe('Role Controller', () => {
 
   let roleDetails = {
     deleted: false,
-    name: 'test-group',
-    permissions: ['client1', 'client2', 'client3'],
+    name: 'test-role',
+    permissions: ['permission1', 'permission2', 'permission3'],
     roleKey: 0,
   };
 

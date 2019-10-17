@@ -1,9 +1,9 @@
-import {model, property, belongsTo} from '@loopback/repository';
-import {BaseEntity} from './base-entity.model';
-import {Tenant, TenantWithRelations} from './tenant.model';
-import {User, UserWithRelations} from './user.model';
-import {Role, RoleWithRelations} from './role.model';
-import {Group, GroupWithRelations} from './group.model';
+import { model, property, belongsTo } from '@loopback/repository';
+import { BaseEntity } from './base-entity.model';
+import { Tenant, TenantWithRelations } from './tenant.model';
+import { User, UserWithRelations } from './user.model';
+import { Group, GroupWithRelations } from './group.model';
+import { Role, RoleWithRelations } from './role.model';
 
 @model({
   name: 'user_tenants',
@@ -17,7 +17,7 @@ export class UserTenant extends BaseEntity {
 
   @belongsTo(
     () => User,
-    {keyFrom: 'user_id', name: 'user_id'},
+    { keyFrom: 'user_id', name: 'user_id' },
     {
       name: 'user_id',
       required: true,
@@ -27,7 +27,7 @@ export class UserTenant extends BaseEntity {
 
   @belongsTo(
     () => Tenant,
-    {keyFrom: 'tenant_id', name: 'tenant_id'},
+    { keyFrom: 'tenant_id', name: 'tenant_id' },
     {
       name: 'tenant_id',
       required: true,
@@ -35,32 +35,28 @@ export class UserTenant extends BaseEntity {
   )
   tenantId: number;
 
-  @belongsTo(
-    () => Role,
-    {keyFrom: 'role_id', name: 'role_id'},
-    {
-      name: 'role_id',
-      required: true,
-    },
-  )
-  roleId: number;
-
-  @belongsTo(
-    () => Group,
-    {keyFrom: 'group_id', name: 'group_id'},
-    {
-      name: 'group_id',
-      required: true,
-    },
-  )
-  groupId: number;
-
   @property({
     type: 'string',
     required: true,
     default: 'active',
   })
   status: string;
+
+  @belongsTo(() => Group,
+    { keyFrom: 'group_id', name: 'Group' },
+    {
+      name: 'group_id',
+    },
+  )
+  groupId: number;
+
+  @belongsTo(() => Role,
+    { keyFrom: 'role_id', name: 'Role' },
+    {
+      name: 'role_id',
+    },
+  )
+  roleId: number;
 
   constructor(data?: Partial<UserTenant>) {
     super(data);

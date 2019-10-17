@@ -9,3 +9,6 @@ export * from '../modules/user-tenants/user-tenant-permission.controller';
 export * from '../modules/user-tenants/user-tenant-client.controller';
 export * from './group.controller';
 export * from '../modules/user-tenants/user-credentials.controller';
+export * from './user-tenant-group.controller';
+export * from './user-tenant-role.controller';
+export * from './user-tenant.controller';

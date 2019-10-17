@@ -57,10 +57,10 @@ describe('Login/Out Controllers', () => {
       .post('/auth/token/')
       .set('Accept', 'application/json')
       .send(authDetails)
-      .expect(200)
       .expect(function (res) {
         tokenDetails = res.body;
-      });
+      })
+      .expect(200);
   });
 
   it('refresh access token', async () => {

@@ -1,7 +1,7 @@
-import {Getter, inject} from '@loopback/core';
-import {BelongsToAccessor, repository} from '@loopback/repository';
+import { Getter, inject } from '@loopback/core';
+import { BelongsToAccessor, repository } from '@loopback/repository';
 
-import {PgdbDataSource} from '../datasources';
+import { PgdbDataSource } from '../datasources';
 import {
   Role,
   Tenant,
@@ -10,17 +10,17 @@ import {
   UserTenantRelations,
   Group,
 } from '../models';
-import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
-import {RoleRepository} from './role.repository';
-import {TenantRepository} from './tenant.repository';
-import {UserRepository} from './user.repository';
-import {GroupRepository} from './group.repository';
+import { DefaultSoftCrudRepository } from './default-soft-crud.repository.base';
+import { RoleRepository } from './role.repository';
+import { TenantRepository } from './tenant.repository';
+import { UserRepository } from './user.repository';
+import { GroupRepository } from './group.repository';
 
 export class UserTenantRepository extends DefaultSoftCrudRepository<
   UserTenant,
   typeof UserTenant.prototype.id,
   UserTenantRelations
-> {
+  > {
   public readonly tenant: BelongsToAccessor<
     Tenant,
     typeof UserTenant.prototype.id
@@ -67,3 +67,18 @@ export class UserTenantRepository extends DefaultSoftCrudRepository<
     );
   }
 }
+
+// import { UserTenant, UserTenantRelations } from '../models';
+// import { PgdbDataSource } from '../datasources';
+// import { inject } from '@loopback/core';
+// import { DefaultSoftCrudRepository } from './default-soft-crud.repository.base';
+
+// export class UserTenantRepository extends DefaultSoftCrudRepository<
+//   UserTenant,
+//   typeof UserTenant.prototype.id,
+//   UserTenantRelations
+//   > {
+//   constructor(@inject('datasources.pgdb') dataSource: PgdbDataSource) {
+//     super(UserTenant, dataSource);
+//   }
+// }

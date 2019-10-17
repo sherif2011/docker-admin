@@ -16,18 +16,18 @@ import {
   put,
   requestBody,
 } from '@loopback/rest';
-import {authenticate, STRATEGY} from 'loopback4-authentication';
-import {authorize} from 'loopback4-authorization';
+import { authenticate, STRATEGY } from 'loopback4-authentication';
+import { authorize } from 'loopback4-authorization';
 
-import {Role} from '../../models';
-import {RoleRepository} from '../../repositories';
+import { Role } from '../../models';
+import { RoleRepository } from '../../repositories';
 //import {PermissionKey} from '../auth/permission-key.enum';
 
 export class RoleController {
   constructor(
     @repository(RoleRepository)
     public roleRepository: RoleRepository,
-  ) {}
+  ) { }
 
   @authenticate(STRATEGY.BEARER)
   @authorize(['*'])
@@ -35,7 +35,7 @@ export class RoleController {
     responses: {
       '200': {
         description: 'Role model instance',
-        content: {'application/json': {schema: {'x-ts-type': Role}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Role } } },
       },
     },
   })
@@ -49,7 +49,7 @@ export class RoleController {
     responses: {
       '200': {
         description: 'Role model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -59,7 +59,7 @@ export class RoleController {
     return await this.roleRepository.count(where);
   }
 
-  @authenticate(STRATEGY.BEARER)
+  // @authenticate(STRATEGY.BEARER)
   @authorize(['*'])
   @get('/roles', {
     responses: {
@@ -67,7 +67,7 @@ export class RoleController {
         description: 'Array of Role model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': Role}},
+            schema: { type: 'array', items: { 'x-ts-type': Role } },
           },
         },
       },
@@ -86,7 +86,7 @@ export class RoleController {
     responses: {
       '200': {
         description: 'Role PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -103,7 +103,7 @@ export class RoleController {
     responses: {
       '200': {
         description: 'Role model instance',
-        content: {'application/json': {schema: {'x-ts-type': Role}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Role } } },
       },
     },
   })

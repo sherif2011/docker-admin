@@ -16,18 +16,18 @@ import {
   put,
   requestBody,
 } from '@loopback/rest';
-import {authenticate, STRATEGY} from 'loopback4-authentication';
-import {authorize} from 'loopback4-authorization';
+import { authenticate, STRATEGY } from 'loopback4-authentication';
+import { authorize } from 'loopback4-authorization';
 
-import {User} from '../../models';
-import {UserRepository} from '../../repositories';
-import {PermissionKey} from '../auth/permission-key.enum';
+import { User } from '../../models';
+import { UserRepository } from '../../repositories';
+import { PermissionKey } from '../auth/permission-key.enum';
 
 export class UserController {
   constructor(
     @repository(UserRepository)
     public userRepository: UserRepository,
-  ) {}
+  ) { }
 
   @authenticate(STRATEGY.BEARER)
   @authorize(['*'])
@@ -35,7 +35,7 @@ export class UserController {
     responses: {
       '200': {
         description: 'User model instance',
-        content: {'application/json': {schema: {'x-ts-type': User}}},
+        content: { 'application/json': { schema: { 'x-ts-type': User } } },
       },
     },
   })
@@ -49,7 +49,7 @@ export class UserController {
     responses: {
       '200': {
         description: 'User model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -67,7 +67,7 @@ export class UserController {
         description: 'Array of User model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': User}},
+            schema: { type: 'array', items: { 'x-ts-type': User } },
           },
         },
       },
@@ -86,7 +86,7 @@ export class UserController {
     responses: {
       '200': {
         description: 'User PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -103,7 +103,7 @@ export class UserController {
     responses: {
       '200': {
         description: 'User model instance',
-        content: {'application/json': {schema: {'x-ts-type': User}}},
+        content: { 'application/json': { schema: { 'x-ts-type': User } } },
       },
     },
   })

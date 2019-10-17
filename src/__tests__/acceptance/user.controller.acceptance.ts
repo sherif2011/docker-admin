@@ -3,6 +3,7 @@ import { adminApplication } from '../..';
 import { setupApplication } from './test-helper';
 
 let loginDetails = require('./login.controller.acceptance');
+let MankariousId = 0;
 
 describe('User Controller', () => {
   let app: adminApplication;
@@ -44,21 +45,14 @@ describe('User Controller', () => {
       .expect(200);
   });
 
-  it('post users', async () => {
-    await client
-      .post('/users/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .send(userDetails)
-      .expect(200);
-  });
-
-  it('delete user by id', async () => {
-    await client
-      .delete('/users/2/')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(204);
-  });
+  // it('post users', async () => {
+  //   await client
+  //     .post('/users/')
+  //     .set('Accept', 'application/json')
+  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+  //     .send(userDetails)
+  //     .expect(200);
+  // });
 
   it('put user by id', async () => {
     await client
@@ -82,6 +76,13 @@ describe('User Controller', () => {
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(userDetails)
+      .expect(204);
+  });
+
+  it('delete user by id', async () => {
+    await client
+      .delete('/users/2/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });
 

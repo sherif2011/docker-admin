@@ -1,14 +1,13 @@
-import {DataObject, Options} from '@loopback/repository';
-import {Group, GroupRelations} from '../models';
-import {PgdbDataSource} from '../datasources';
-import {inject} from '@loopback/core';
-import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
+import { DataObject, Options, DefaultCrudRepository } from '@loopback/repository';
+import { Group, GroupRelations } from '../models';
+import { PgdbDataSource } from '../datasources';
+import { inject } from '@loopback/core';
 
-export class GroupRepository extends DefaultSoftCrudRepository<
+export class GroupRepository extends DefaultCrudRepository<
   Group,
   typeof Group.prototype.id,
   GroupRelations
-> {
+  > {
   constructor(@inject('datasources.pgdb') dataSource: PgdbDataSource) {
     super(Group, dataSource);
   }
@@ -32,7 +31,7 @@ export class GroupRepository extends DefaultSoftCrudRepository<
     const query = `UPDATE admin.groups SET
      clients='${clients}',  name='${entity.name}', deleted='${
       entity.deleted
-    }' WHERE id=${id}`;
+      }' WHERE id=${id}`;
     await super.execute(query, []);
   }
 
@@ -42,7 +41,7 @@ export class GroupRepository extends DefaultSoftCrudRepository<
     const query = `UPDATE admin.groups SET
     clients='${clients}',  name='${entity.name}', deleted='${
       entity.deleted
-    }' WHERE id=${id}`;
+      }' WHERE id=${id}`;
     await super.execute(query, []);
   }
 }

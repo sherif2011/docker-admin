@@ -1,13 +1,13 @@
-import {UserTenantClient, UserTenantClientRelations} from '../models';
-import {PgdbDataSource} from '../datasources';
-import {inject} from '@loopback/core';
-import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
+import { UserTenantClient, UserTenantClientRelations } from '../models';
+import { PgdbDataSource } from '../datasources';
+import { inject } from '@loopback/core';
+import { DefaultCrudRepository } from '@loopback/repository';
 
-export class UserTenantClientRepository extends DefaultSoftCrudRepository<
+export class UserTenantClientRepository extends DefaultCrudRepository<
   UserTenantClient,
   typeof UserTenantClient.prototype.id,
   UserTenantClientRelations
-> {
+  > {
   constructor(@inject('datasources.pgdb') dataSource: PgdbDataSource) {
     super(UserTenantClient, dataSource);
   }

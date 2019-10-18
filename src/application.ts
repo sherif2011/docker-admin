@@ -1,15 +1,15 @@
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig } from '@loopback/core';
+import { RepositoryMixin, SchemaMigrationOptions } from '@loopback/repository';
+import { RestApplication } from '@loopback/rest';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
 } from '@loopback/rest-explorer';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { ServiceMixin } from '@loopback/service-proxy';
 import * as dotenv from 'dotenv';
 import * as dotenvExt from 'dotenv-extended';
-import {AuthenticationComponent, Strategies} from 'loopback4-authentication';
+import { AuthenticationComponent, Strategies } from 'loopback4-authentication';
 import {
   AuthorizationBindings,
   AuthorizationComponent,
@@ -23,7 +23,8 @@ import {
   LocalPasswordVerifyProvider,
   ResourceOwnerVerifyProvider,
 } from './modules/auth';
-import {MySequence} from './sequence';
+import { MySequence } from './sequence';
+import { RoleRepository, UserRepository } from './repositories';
 
 export class AdminApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -89,5 +90,18 @@ export class AdminApplication extends BootMixin(
       schema: '.env.example',
       errorOnMissing: false,
     });
+  }
+
+  async migrateSchema(options?: SchemaMigrationOptions) {
+    // 1. Run migration scripts provided by connectors
+    await super.migrateSchema(options);
+    // 2. Run post migration activities - add seeds...etc.
+    // let rep = await this.getRepository(RoleRepository);
+    // await rep.create({
+    //   "name": "super_admin",
+    //   "roleKey": 1,
+    //   "deleted": false,
+    //   "permissions": ['test']
+    // });
   }
 }

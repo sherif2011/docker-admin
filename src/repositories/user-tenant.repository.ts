@@ -1,5 +1,5 @@
 import { Getter, inject } from '@loopback/core';
-import { BelongsToAccessor, repository } from '@loopback/repository';
+import { BelongsToAccessor, repository, DefaultCrudRepository } from '@loopback/repository';
 
 import { PgdbDataSource } from '../datasources';
 import {
@@ -8,13 +8,12 @@ import {
   UserTenant,
   UserTenantRelations, Group, Role
 } from '../models';
-import { DefaultSoftCrudRepository } from './default-soft-crud.repository.base';
 import { TenantRepository } from './tenant.repository';
 import { UserRepository } from './user.repository';
 import { GroupRepository } from './group.repository';
 import { RoleRepository } from './role.repository';
 
-export class UserTenantRepository extends DefaultSoftCrudRepository<
+export class UserTenantRepository extends DefaultCrudRepository<
   UserTenant,
   typeof UserTenant.prototype.id,
   UserTenantRelations

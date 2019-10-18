@@ -7,6 +7,7 @@ let loginDetails = require('./login.controller.acceptance');
 describe('Group Controller', () => {
   let app: adminApplication;
   let client: Client;
+  let testGroupId = 0;
 
   let tokenDetails = {
     accessToken: '',
@@ -25,21 +26,6 @@ describe('Group Controller', () => {
     //console.log(tokenDetails);
   });
 
-  it('get groups', async () => {
-    await client
-      .get('/groups/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
-  it('get groups count', async () => {
-    await client
-      .get('/groups/count')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
   it('post groups', async () => {
     await client
       .post('/groups/')
@@ -49,11 +35,23 @@ describe('Group Controller', () => {
       .expect(200);
   });
 
-  it('delete group by id', async () => {
+  it('get groups', async () => {
     await client
-      .delete('/groups/2/')
+      .get('/groups?filter[name]=test-group')
+      .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(204);
+      //  .expect(200)
+      .expect(function (res) {
+        console.log(res);
+        testGroupId = res.body.id;
+      });
+  });
+
+  it('get groups count', async () => {
+    await client
+      .get('/groups/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
   });
 
   it('put group by id', async () => {
@@ -78,6 +76,13 @@ describe('Group Controller', () => {
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(groupDetails)
+      .expect(204);
+  });
+
+  it('delete group by id', async () => {
+    await client
+      .delete('/groups/2/')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });
 

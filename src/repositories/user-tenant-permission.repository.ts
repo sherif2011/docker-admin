@@ -36,16 +36,16 @@
 //     );
 //   }
 // }
-import {UserTenantPermission, UserTenantPermissionRelations} from '../models';
-import {PgdbDataSource} from '../datasources';
-import {inject} from '@loopback/core';
-import {DefaultSoftCrudRepository} from './default-soft-crud.repository.base';
+import { UserTenantPermission, UserTenantPermissionRelations } from '../models';
+import { PgdbDataSource } from '../datasources';
+import { inject } from '@loopback/core';
+import { DefaultCrudRepository } from '@loopback/repository';
 
-export class UserTenantPermissionRepository extends DefaultSoftCrudRepository<
+export class UserTenantPermissionRepository extends DefaultCrudRepository<
   UserTenantPermission,
   typeof UserTenantPermission.prototype.id,
   UserTenantPermissionRelations
-> {
+  > {
   constructor(@inject('datasources.pgdb') dataSource: PgdbDataSource) {
     super(UserTenantPermission, dataSource);
   }

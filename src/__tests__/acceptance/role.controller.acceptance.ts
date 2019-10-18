@@ -7,6 +7,7 @@ let loginDetails = require('./login.controller.acceptance');
 describe('Role Controller', () => {
   let app: adminApplication;
   let client: Client;
+  let testRoleId = 0;
 
   let tokenDetails = {
     accessToken: '',
@@ -26,21 +27,6 @@ describe('Role Controller', () => {
     //console.log(tokenDetails);
   });
 
-  it('get roles', async () => {
-    await client
-      .get('/roles/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
-  it('get roles count', async () => {
-    await client
-      .get('/roles/count')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
   it('post roles', async () => {
     await client
       .post('/roles/')
@@ -50,16 +36,27 @@ describe('Role Controller', () => {
       .expect(200);
   });
 
-  it('delete role by id', async () => {
+  it('get roles', async () => {
     await client
-      .delete('/roles/4/')
+      .get('/roles?filter[where][name]=test-role')
+      .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(204);
+      .expect(200)
+      .expect(function (res) {
+        testRoleId = res.body[0].id;
+      });
   });
 
-  it('put roles by id', async () => {
+  it('get roles count', async () => {
     await client
-      .put('/roles/4/')
+      .get('/roles/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
+
+  it('put role by id', async () => {
+    await client
+      .put('/roles/' + testRoleId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(roleDetails)
@@ -68,17 +65,24 @@ describe('Role Controller', () => {
 
   it('get role by id', async () => {
     await client
-      .get('/roles/4/')
+      .get('/roles/' + testRoleId)
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
   it('patch role by id', async () => {
     await client
-      .patch('/roles/4/')
+      .patch('/roles/' + testRoleId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(roleDetails)
+      .expect(204);
+  });
+
+  it('delete role by id', async () => {
+    await client
+      .delete('/roles/' + testRoleId)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });
 

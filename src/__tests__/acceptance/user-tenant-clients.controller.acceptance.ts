@@ -7,6 +7,7 @@ let loginDetails = require('./login.controller.acceptance');
 describe('User-Tenant Clients Controller', () => {
   let app: adminApplication;
   let client: Client;
+  let testUserTenantClientId = 0;
 
   let tokenDetails = {
     accessToken: '',
@@ -25,22 +26,13 @@ describe('User-Tenant Clients Controller', () => {
     tokenDetails = await loginDetails.login(client);
   });
 
-  it('get user-tenant clients', async () => {
-    await client
-      .get('/user-tenant-clients/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
+  before('setupApplication', async () => {
+    ({ app, client } = await setupApplication());
+    tokenDetails = await loginDetails.login(client);
+    //console.log(tokenDetails);
   });
 
-  it('get user-tenant clients count', async () => {
-    await client
-      .get('/user-tenant-clients/count')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
-  it('post user-tenant clients', async () => {
+  it('post user-tenant-clients', async () => {
     await client
       .post('/user-tenant-clients/')
       .set('Accept', 'application/json')
@@ -49,35 +41,53 @@ describe('User-Tenant Clients Controller', () => {
       .expect(200);
   });
 
-  it('delete user-tenant clients by id', async () => {
+  it('get user-tenant-clients', async () => {
     await client
-      .delete('/user-tenant-clients/1/')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(204);
-  });
-
-  it('put user-tenant clients by id', async () => {
-    await client
-      .put('/user-tenant-clients/1')
+      .get('/user-tenant-clients?filter[where][userTenantId]=1')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .send(userTenantClientsDetails)
-      .expect(204);
+      .expect(200)
+      .expect(function (res) {
+        testUserTenantClientId = res.body[0].id;
+      });
   });
 
-  it('get user-tenant clients by id', async () => {
+  it('get user-tenant-clients count', async () => {
     await client
-      .get('/user-tenant-clients/1/')
+      .get('/user-tenant-clients/count')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
-  it('patch user-tenant clients by id', async () => {
+  it('put user-tenant-client by id', async () => {
     await client
-      .patch('/user-tenant-clients/1/')
+      .put('/user-tenant-clients/' + testUserTenantClientId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(userTenantClientsDetails)
+      .expect(204);
+  });
+
+  it('get user-tenant-client by id', async () => {
+    await client
+      .get('/user-tenant-clients/' + testUserTenantClientId)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
+  });
+
+  it('patch user-tenant-client by id', async () => {
+    await client
+      .patch('/user-tenant-clients/' + testUserTenantClientId)
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(userTenantClientsDetails)
+      .expect(204);
+  });
+
+  it('delete user-tenant-client by id', async () => {
+    await client
+      .delete('/user-tenant-clients/' + testUserTenantClientId)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });
 

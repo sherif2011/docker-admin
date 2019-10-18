@@ -7,6 +7,7 @@ let loginDetails = require('./login.controller.acceptance');
 describe('Tenant Controller', () => {
   let app: adminApplication;
   let client: Client;
+  let testTenantId = 0;
 
   let tokenDetails = {
     accessToken: '',
@@ -15,7 +16,7 @@ describe('Tenant Controller', () => {
 
   let tenantDetails = {
     deleted: false,
-    name: 'HSP',
+    name: 'test-tenant',
     type: 'customer',
     address1: '20130 Lakeview Center Plaza',
     address2: 'Suite 300',
@@ -31,21 +32,7 @@ describe('Tenant Controller', () => {
   before('setupApplication', async () => {
     ({ app, client } = await setupApplication());
     tokenDetails = await loginDetails.login(client);
-  });
-
-  it('get tenants', async () => {
-    await client
-      .get('/tenants/')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
-  });
-
-  it('get tenants count', async () => {
-    await client
-      .get('/tenants/count')
-      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(200);
+    //console.log(tokenDetails);
   });
 
   it('post tenants', async () => {
@@ -57,16 +44,27 @@ describe('Tenant Controller', () => {
       .expect(200);
   });
 
-  it('delete tenant by id', async () => {
+  it('get tenants', async () => {
     await client
-      .delete('/tenants/2/')
+      .get('/tenants?filter[where][name]=test-tenant')
+      .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      .expect(204);
+      .expect(200)
+      .expect(function (res) {
+        testTenantId = res.body[0].id;
+      });
+  });
+
+  it('get tenants count', async () => {
+    await client
+      .get('/tenants/count')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200);
   });
 
   it('put tenant by id', async () => {
     await client
-      .put('/tenants/2')
+      .put('/tenants/' + testTenantId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(tenantDetails)
@@ -75,17 +73,24 @@ describe('Tenant Controller', () => {
 
   it('get tenant by id', async () => {
     await client
-      .get('/tenants/2/')
+      .get('/tenants/' + testTenantId)
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
   it('patch tenant by id', async () => {
     await client
-      .patch('/tenants/2/')
+      .patch('/tenants/' + testTenantId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(tenantDetails)
+      .expect(204);
+  });
+
+  it('delete tenant by id', async () => {
+    await client
+      .delete('/tenants/' + testTenantId)
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });
 

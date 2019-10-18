@@ -1,7 +1,7 @@
-import {model, property} from '@loopback/repository';
+import { model, property } from '@loopback/repository';
 
-import {RoleType} from '../modules/roles/role.enum';
-import {BaseEntity} from './base-entity.model';
+import { RoleType } from '../modules/roles/role.enum';
+import { BaseEntity } from './base-entity.model';
 
 @model({
   name: 'roles',

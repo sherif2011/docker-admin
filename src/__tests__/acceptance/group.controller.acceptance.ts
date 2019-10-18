@@ -37,13 +37,12 @@ describe('Group Controller', () => {
 
   it('get groups', async () => {
     await client
-      .get('/groups?filter[name]=test-group')
+      .get('/groups?filter[where][name]=test-group')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-      //  .expect(200)
+      .expect(200)
       .expect(function (res) {
-        console.log(res);
-        testGroupId = res.body.id;
+        testGroupId = res.body[0].id;
       });
   });
 
@@ -56,7 +55,7 @@ describe('Group Controller', () => {
 
   it('put group by id', async () => {
     await client
-      .put('/groups/2')
+      .put('/groups/' + testGroupId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(groupDetails)
@@ -65,14 +64,14 @@ describe('Group Controller', () => {
 
   it('get group by id', async () => {
     await client
-      .get('/groups/2/')
+      .get('/groups/' + testGroupId)
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
   it('patch group by id', async () => {
     await client
-      .patch('/groups/2/')
+      .patch('/groups/' + testGroupId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(groupDetails)
@@ -81,7 +80,7 @@ describe('Group Controller', () => {
 
   it('delete group by id', async () => {
     await client
-      .delete('/groups/2/')
+      .delete('/groups/' + testGroupId)
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });

@@ -8,6 +8,7 @@ let MankariousId = 0;
 describe('User Controller', () => {
   let app: adminApplication;
   let client: Client;
+  let testUserId = 0;
 
   let tokenDetails = {
     accessToken: '',
@@ -19,8 +20,8 @@ describe('User Controller', () => {
     firstName: 'Sherif',
     lastName: 'Mankarious',
     middleName: 'S',
-    username: 'smankarious',
-    email: 'smankarious@sunrisedataservices.com',
+    username: 'smankarious2',
+    email: 'smankarious2@sunrisedataservices.com',
     phone: '777-777-7777',
     defaultTenant: 1,
   };
@@ -30,12 +31,25 @@ describe('User Controller', () => {
     tokenDetails = await loginDetails.login(client);
   });
 
-  it('get users', async () => {
+
+  it('post users', async () => {
     await client
-      .get('/users/')
+      .post('/users/')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(userDetails)
       .expect(200);
+  });
+
+  it('get users', async () => {
+    await client
+      .get('/users?filter[where][username]=smankarious2')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .expect(200)
+      .expect(function (res) {
+        testUserId = res.body[0].id;
+      });
   });
 
   it('get users count', async () => {
@@ -45,18 +59,9 @@ describe('User Controller', () => {
       .expect(200);
   });
 
-  // it('post users', async () => {
-  //   await client
-  //     .post('/users/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(userDetails)
-  //     .expect(200);
-  // });
-
   it('put user by id', async () => {
     await client
-      .put('/users/2')
+      .put('/users/' + testUserId)
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(userDetails)
@@ -65,14 +70,14 @@ describe('User Controller', () => {
 
   it('get user by id', async () => {
     await client
-      .get('/users/2/')
+      .get('/users/' + testUserId + '/')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(200);
   });
 
   it('patch user by id', async () => {
     await client
-      .patch('/users/2/')
+      .patch('/users/' + testUserId + '/')
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(userDetails)
@@ -81,7 +86,7 @@ describe('User Controller', () => {
 
   it('delete user by id', async () => {
     await client
-      .delete('/users/2/')
+      .delete('/users/' + testUserId + '/')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .expect(204);
   });

@@ -19,6 +19,7 @@ import {
 } from '@loopback/rest';
 import { UserTenant } from '../models';
 import { UserTenantRepository } from '../repositories';
+import { authorize } from 'loopback4-authorization';
 
 export class UserTenantController {
   constructor(
@@ -26,6 +27,7 @@ export class UserTenantController {
     public userTenantRepository: UserTenantRepository,
   ) { }
 
+  @authorize(['*'])
   @post('/user-tenants', {
     responses: {
       '200': {
@@ -47,6 +49,7 @@ export class UserTenantController {
     return this.userTenantRepository.create(userTenant);
   }
 
+  @authorize(['*'])
   @get('/user-tenants/count', {
     responses: {
       '200': {
@@ -61,6 +64,7 @@ export class UserTenantController {
     return this.userTenantRepository.count(where);
   }
 
+  @authorize(['*'])
   @get('/user-tenants', {
     responses: {
       '200': {
@@ -79,6 +83,7 @@ export class UserTenantController {
     return this.userTenantRepository.find(filter);
   }
 
+  @authorize(['*'])
   @patch('/user-tenants', {
     responses: {
       '200': {
@@ -101,6 +106,7 @@ export class UserTenantController {
     return this.userTenantRepository.updateAll(userTenant, where);
   }
 
+  @authorize(['*'])
   @get('/user-tenants/{id}', {
     responses: {
       '200': {
@@ -113,6 +119,7 @@ export class UserTenantController {
     return this.userTenantRepository.findById(id);
   }
 
+  @authorize(['*'])
   @patch('/user-tenants/{id}', {
     responses: {
       '204': {
@@ -134,6 +141,7 @@ export class UserTenantController {
     await this.userTenantRepository.updateById(id, userTenant);
   }
 
+  @authorize(['*'])
   @put('/user-tenants/{id}', {
     responses: {
       '204': {
@@ -148,6 +156,7 @@ export class UserTenantController {
     await this.userTenantRepository.replaceById(id, userTenant);
   }
 
+  @authorize(['*'])
   @del('/user-tenants/{id}', {
     responses: {
       '204': {

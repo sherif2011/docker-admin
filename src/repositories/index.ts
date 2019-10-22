@@ -11,3 +11,4 @@ export * from './revoked-token.repository';
 export * from './user-credentials.repository';
 export * from './user-tenant-client.repository';
 export * from './group.repository';
+export * from './request-id.repository';

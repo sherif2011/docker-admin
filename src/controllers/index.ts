@@ -12,3 +12,4 @@ export * from '../modules/user-tenants/user-credentials.controller';
 export * from './user-tenant-group.controller';
 export * from './user-tenant-role.controller';
 export * from './user-tenant.controller';
+export * from './two-factor.controller';

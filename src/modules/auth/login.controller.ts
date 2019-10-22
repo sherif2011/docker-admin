@@ -9,6 +9,7 @@ import {
   requestBody,
   Response,
   RestBindings,
+  getModelSchemaRef,
 } from '@loopback/rest';
 import * as crypto from 'crypto';
 import * as jwt from 'jsonwebtoken';
@@ -42,6 +43,7 @@ import { AuthRefreshTokenRequest, AuthTokenRequest, LoginRequest } from './';
 import { AuthenticateErrorKeys } from './error-keys';
 import { AuthUser } from './models/auth-user.model';
 import { TokenResponse } from './models/token-response.dto';
+import { RequestId } from '../../models/request-id.model';
 
 export class LoginController {
   // sonarignore_start

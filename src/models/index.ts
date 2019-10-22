@@ -12,3 +12,4 @@ export * from './refresh-token.model';
 export * from './revoked-token.model';
 export * from './user-credentials.model';
 export * from './user-tenant-client.model';
+export * from './request-id.model';

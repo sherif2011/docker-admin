@@ -1,11 +1,11 @@
-import {hasOne, model, property} from '@loopback/repository';
-import {IAuthUser} from 'loopback4-authentication';
+import { hasOne, model, property } from '@loopback/repository';
+import { IAuthUser } from 'loopback4-authentication';
 
 import {
   UserCredentials,
   UserCredentialsWithRelations,
 } from './user-credentials.model';
-import {UserModifiableEntity} from './user-modifiable-entity.model';
+import { UserModifiableEntity } from './user-modifiable-entity.model';
 
 @model({
   name: 'users',
@@ -67,7 +67,7 @@ export class User extends UserModifiableEntity implements IAuthUser {
   })
   lastLogin?: string;
 
-  @hasOne(() => UserCredentials, {keyTo: 'userId'})
+  @hasOne(() => UserCredentials, { keyTo: 'userId' })
   credentials: UserCredentials;
 
   constructor(data?: Partial<User>) {

@@ -22,8 +22,17 @@ describe('User Controller', () => {
     middleName: 'S',
     username: 'smankarious2',
     email: 'smankarious2@sunrisedataservices.com',
-    phone: '777-777-7777',
-    defaultTenant: 1,
+    phone: '7133151904',
+    defaultTenant: 1
+  };
+
+  let userTenantDetails = {
+    deleted: false,
+    status: 'active',
+    userId: 2,
+    tenantId: 1,
+    groupId: 1,
+    roleId: 3
   };
 
   before('setupApplication', async () => {
@@ -38,6 +47,15 @@ describe('User Controller', () => {
       .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
       .send(userDetails)
+      .expect(200);
+  });
+
+  it('post user-tenants', async () => {
+    await client
+      .post('/user-tenants/')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(userTenantDetails)
       .expect(200);
   });
 
@@ -84,10 +102,19 @@ describe('User Controller', () => {
       .expect(204);
   });
 
-  it('delete user by id', async () => {
+  // it('delete user by id', async () => {
+  //   await client
+  //     .delete('/users/' + testUserId + '/')
+  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+  //     .expect(204);
+  // });
+
+  it('patch user by id', async () => {
     await client
-      .delete('/users/' + testUserId + '/')
+      .patch('/users/' + testUserId + '/')
+      .set('Accept', 'application/json')
       .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
+      .send(userDetails)
       .expect(204);
   });
 

@@ -165,6 +165,12 @@ CREATE TABLE admin.users (
 	CONSTRAINT idx_username UNIQUE ( username )
  );
 
+
+CREATE TABLE admin.RequestId (
+	username           	 varchar(150)  NOT NULL ,
+	request_id	         varchar(200)  NOT NULL
+ );
+
 CREATE INDEX idx_user_created_by ON admin.users ( created_by );
 
 CREATE INDEX idx_user_modified_by ON admin.users ( modified_by );

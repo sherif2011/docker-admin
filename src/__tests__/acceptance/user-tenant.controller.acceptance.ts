@@ -28,14 +28,7 @@ describe('User-Tenant Controller', () => {
     tokenDetails = await loginDetails.login(client);
   });
 
-  // it('post user-tenants', async () => {
-  //   await client
-  //     .post('/user-tenants/')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Bearer ' + tokenDetails.accessToken)
-  //     .send(userTenantDetails)
-  //     .expect(200);
-  // });
+  // Post user tenant is in user controller
 
   it('get user-tenants', async () => {
     await client

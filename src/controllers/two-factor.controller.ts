@@ -12,8 +12,8 @@ import { RequestIdRepository } from '../repositories/request-id.repository';
 const Nexmo = require('nexmo');
 
 const nexmo = new Nexmo({
-  apiKey: '9047aef2',
-  apiSecret: '8a1M3YFMIIXbuY9a',
+  apiKey: 'XXXXXXX',
+  apiSecret: 'XXXXXXXXXXXXX',
 });
 
 // const util = require('util');

@@ -1,0 +1,31 @@
+version: '3'
+services:
+  admin:
+    container_name: admin
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+    links:
+      - redis
+      - postgres
+  redis:
+    container_name: admin-redis
+    image: 'redis'
+    restart: 'always'
+    ports:
+      - '6379:6379'
+  postgres:
+    container_name: admin-postgres
+    image: 'postgres'
+    restart: 'always'
+    ports:
+      - '5432:5432'
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=TEMP"
+    volumes:
+      - ./migrations/sqls:/docker-entrypoint-initdb.d
+
+
+

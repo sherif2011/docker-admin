@@ -1,3 +1,14 @@
+FROM postgres
+USER POSTGRES
+## ADD source './docker-entrypoint-initdb.d'
+# USER postgres
+
+# RUN postgres &\
+#  psql --command "IF NOT EXISTS (SELECT FROM pg_catalog.pg_user WHERE usename = 'user')\
+#  THEN CREATE USER postgres WITH SUPERUSER ENCRYPTED PASSWORD 'Sunrise@2015'; END IF;" &\
+#  createdb main
+
+EXPOSE 5432
 # Check out https://hub.docker.com/_/node to select a new base image
 FROM node:10-slim
 
@@ -14,6 +25,8 @@ WORKDIR /home/node/app
 # where available (npm@5+)
 COPY --chown=node package*.json ./
 
+COPY --chown=node package*.json ./
+
 RUN npm install
 
 # Bundle app source code
@@ -25,4 +38,5 @@ RUN npm run build
 ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE ${PORT}
+
 CMD [ "node", "." ]

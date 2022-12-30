@@ -74,7 +74,7 @@
     "util": "^0.12.1"
   },
   "devDependencies": {
-    "@loopback/build": "^2.0.3",
+    "@loopback/build": "^9.0.6",
     "@loopback/testlab": "^1.6.3",
     "@loopback/tslint-config": "^2.1.0",
     "@types/bcrypt": "^3.0.0",
